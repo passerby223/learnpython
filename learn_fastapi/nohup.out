@@ -1,0 +1,14 @@
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [17536]
+INFO:     email-validator not installed, email fields will be treated as str.
+To install, run: pip install email-validator
+INFO:     Started server process [17541]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51926 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51948 - "GET /items/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52026 - "GET /items/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55114 - "GET /items/3?q=%E4%B8%80%E5%8F%AA%E9%B9%85 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55844 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55844 - "GET /openapi.json HTTP/1.1" 200 OK
+INFO:     127.0.0.1:41664 - "GET / HTTP/1.1" 200 OK
