@@ -5,10 +5,11 @@
 # @File    : multiprocess_Process.py
 
 
-from multiprocessing import Process
+from multiprocessing import Process, Lock
 
 import time
 import random
+import json
 import os
 import sys
 
@@ -306,7 +307,6 @@ for循环起进程
 多进程中的其他方法
 '''
 
-
 # class Myprocess(Process):
 #     '''
 #     进程对象的其他方法:terminate,is_alive
@@ -336,19 +336,210 @@ for循环起进程
 进程对象的其他属性:pid和name
 '''
 
-class Myprocess(Process):
-    def __init__(self,person):
-        self.name=person   # name属性是Process中的属性，标示进程的名字
-        super().__init__() # 执行父类的初始化方法会覆盖name属性
-        #self.name = person # 在这里设置就可以修改进程名字了
-        #self.person = person #如果不想覆盖进程名，就修改属性名称就可以了
-    def run(self):
-        print('%s正在和网红脸聊天' %self.name)
-        # print('%s正在和网红脸聊天' %self.person)
-        time.sleep(random.randrange(1,5))
-        print('%s正在和网红脸聊天' %self.name)
-        # print('%s正在和网红脸聊天' %self.person)
+# class Myprocess(Process):
+#     def __init__(self,person):
+#         self.name=person   # name属性是Process中的属性，标示进程的名字
+#         super().__init__() # 执行父类的初始化方法会覆盖name属性
+#         #self.name = person # 在这里设置就可以修改进程名字了
+#         #self.person = person #如果不想覆盖进程名，就修改属性名称就可以了
+#     def run(self):
+#         print('%s正在和网红脸聊天' %self.name)
+#         # print('%s正在和网红脸聊天' %self.person)
+#         time.sleep(random.randrange(1,5))
+#         print('%s正在和网红脸聊天' %self.name)
+#         # print('%s正在和网红脸聊天' %self.person)
+#
+# p1=Myprocess('哪吒')
+# p1.start()
+# print(p1.pid)    #可以查看子进程的进程id
 
-p1=Myprocess('哪吒')
-p1.start()
-print(p1.pid)    #可以查看子进程的进程id
+
+'''
+通过刚刚的学习，我们千方百计实现了程序的异步，让多个任务可以同时在几个进程中并发处理，他们之间的运行没有顺序，一旦开启也不受我们控制。尽管并发编程让我们能更加充分的利用IO资源，但是也给我们带来了新的问题。
+当多个进程使用同一份数据资源的时候，就会因为竞争而引发数据安全或顺序混乱问题。
+互斥锁介绍
+下面的代码演示了不同的任务争抢一个资源（终端输出）的场景。
+进程之间竞争资源
+'''
+
+# def task1():
+#     print('这是 task1 任务'.center(30, '-'))
+#     print('task1 进了洗手间')
+#     time.sleep(random.randint(1, 3))
+#     print('task1 办事呢...')
+#     time.sleep(random.randint(1, 3))
+#     print('task1 走出了洗手间')
+#
+#
+# def task2():
+#     print('这是 task2 任务'.center(30, '-'))
+#     print('task2 进了洗手间')
+#     time.sleep(random.randint(1, 3))
+#     print('task2 办事呢...')
+#     time.sleep(random.randint(1, 3))
+#     print('task2 走出了洗手间')
+#
+#
+# def task3():
+#     print('这是 task3 任务'.center(30, '-'))
+#     print('task3 进了洗手间')
+#     time.sleep(random.randint(1, 3))
+#     print('task3 办事呢...')
+#     time.sleep(random.randint(1, 3))
+#     print('task3 走出了洗手间')
+#
+#
+# p1 = Process(target=task1)
+# p2 = Process(target=task2)
+# p3 = Process(target=task3)
+#
+# p1.start()
+# p2.start()
+# p3.start()
+'''
+输出：
+---------这是 task1 任务----------
+task1 进了洗手间
+---------这是 task2 任务----------
+task2 进了洗手间
+---------这是 task3 任务----------
+task3 进了洗手间
+task1 办事呢...
+task3 办事呢...
+task1 走出了洗手间
+task2 办事呢...
+task2 走出了洗手间
+task3 走出了洗手间
+
+解决办法：通过加锁来控制。
+使用互斥锁解决竞争
+'''
+
+# 生成一个互斥锁
+# mutex_lock = Lock()
+#
+#
+# def task1(lock):
+#     # 锁门
+#     lock.acquire()
+#     print('这是 task1 任务'.center(30, '-'))
+#     print('task1 进了洗手间')
+#     time.sleep(random.randint(1, 3))
+#     print('task1 办事呢...')
+#     time.sleep(random.randint(1, 3))
+#     print('task1 走出了洗手间')
+#     # 释放锁
+#     lock.release()
+#
+#
+# def task2(lock):
+#     # 锁门
+#     lock.acquire()
+#     print('这是 task2 任务'.center(30, '-'))
+#     print('task2 进了洗手间')
+#     time.sleep(random.randint(1, 3))
+#     print('task2 办事呢...')
+#     time.sleep(random.randint(1, 3))
+#     print('task2 走出了洗手间')
+#     # 释放锁
+#     lock.release()
+#
+#
+# def task3(lock):
+#     # 锁门
+#     lock.acquire()
+#     print('这是 task3 任务'.center(30, '-'))
+#     print('task3 进了洗手间')
+#     time.sleep(random.randint(1, 3))
+#     print('task3 办事呢...')
+#     time.sleep(random.randint(1, 3))
+#     print('task3 走出了洗手间')
+#     # 释放锁
+#     lock.release()
+#
+#
+# p1 = Process(target=task1, args=(mutex_lock,))
+# p2 = Process(target=task2, args=(mutex_lock,))
+# p3 = Process(target=task3, args=(mutex_lock,))
+#
+# # 释放新建进程的信号，具体谁先启动无法确定
+# p1.start()
+# p2.start()
+# p3.start()
+
+'''
+上面这种情况虽然使用加锁的形式实现了顺序的执行，但是程序又重新变成串行了，这样确实会浪费了时间，却保证了数据的安全。
+互斥锁示例
+接下来，我们以模拟抢票为例，来看看数据安全的重要性。
+多进程同时抢票
+'''
+# def search():
+#     time.sleep(0.5)
+#     with open('db.json', 'r', encoding='utf8') as f:
+#         data = json.load(f)
+#         print('剩余票数:{}'.format(data.get('count')))
+#
+#
+# def buy():
+#     with open('db.json', 'r', encoding='utf8') as f:
+#         data = json.load(f)
+#     if data.get('count', 0) > 0:
+#         data['count'] -= 1
+#         time.sleep(random.randint(1, 3))
+#         with open('db.json', 'w', encoding='utf8') as f2:
+#             json.dump(data, f2)
+#         print('{}购票成功！'.format(os.getpid()))
+#     else:
+#         print('购票失败')
+#
+#
+# def task():
+#     search()  # 查票并发
+#     buy()  # 串行买票
+#
+#
+# for i in range(10):
+#     p = Process(target=task)
+#     p.start()
+
+
+'''
+使用互斥锁，保证数据安全。
+互斥锁版抢票
+'''
+
+# 设置互斥锁
+mutex_lock = Lock()
+
+
+def search():
+    time.sleep(0.5)
+    with open('db.json', 'r', encoding='utf8') as f:
+        data = json.load(f)
+        print('剩余票数:{}'.format(data.get('count')))
+
+
+def buy():
+    with open('db.json', 'r', encoding='utf8') as f:
+        data = json.load(f)
+    if data.get('count', 0) > 0:
+        data['count'] -= 1
+        time.sleep(random.randint(1, 3))
+        with open('db.json', 'w', encoding='utf8') as f2:
+            json.dump(data, f2)
+        print('{}购票成功！'.format(os.getpid()))
+    else:
+        print('购票失败')
+
+
+def task(lock):
+    search()  # 查票并发
+    lock.acquire()
+    buy()  # 串行买票
+    lock.release()
+
+
+if __name__ == '__main__':
+    for i in range(10):
+        p = Process(target=task, args=(mutex_lock,))
+        p.start()
