@@ -39,6 +39,7 @@ multiprocessing模块支持进程间通信的两种主要形式:管道和队列
 #     print('队列已经空了')
 #
 # print(q.empty()) #空了
+import os
 
 ''' 
 上面这个例子还没有加入进程通信，只是先来看看队列为我们提供的方法，以及这些方法的使用和现象。
@@ -305,3 +306,133 @@ multiprocessing模块支持进程间通信的两种主要形式:管道和队列
 每一个进程中至少有一个线程。
 进程和线程的关系
 '''
+'''
+Python中使用线程一
+'''
+import time
+from threading import Thread
+from multiprocessing import Process
+
+# def task(name):
+#     time.sleep(3)
+#     print('hello {}!'.format(name))
+#
+#
+# t1 = Thread(target=task, args=('Jack',))
+# t1.start()
+# t1.join()  # 等待线程终止
+# print('主线程结束!')
+
+'''
+Python中使用线程二
+继承Thread类
+'''
+
+# class MyThread(Thread):
+#
+#     def __init__(self, name):
+#         super().__init__()
+#         self.name = name
+#
+#     def run(self):
+#         time.sleep(2)
+#         print('hello {}!'.format(self.name))
+#
+#
+# t1 = MyThread(name='啦啦啦')
+# t1.start()
+# t1.join()
+# print('主线程结束!')
+
+'''
+多线程与多进程
+'''
+
+# def task():
+#     print('hello {}'.format(os.getpid()))
+#
+#
+# # 多进程
+#
+# # part1:开多个进程,每个进程都有不同的pid
+# p1 = Process(target=task)  # hello 16562
+# p2 = Process(target=task)  # hello 16563
+# p3 = Process(target=task)  # hello 16564
+# p1.start()
+# p2.start()
+# p3.start()
+# p1.join()
+# p2.join()
+# p3.join()
+# print('主线程/主进程pid', os.getpid()) # 主线程/主进程pid 16561
+#
+# time.sleep(3)
+# # 多线程
+#
+# # part2:在主进程下开启多个线程,每个线程都跟主进程的pid一样
+# t1 = Thread(target=task)  # hello 16561
+# t2 = Thread(target=task)  # hello 16561
+# t3 = Thread(target=task)  # hello 16561
+# t1.start()
+# t2.start()
+# t3.start()
+# t1.join()
+# t2.join()
+# t3.join()
+# print('主线程/主进程pid', os.getpid()) # 主线程/主进程pid 16561
+
+'''
+线程与进程开启效率的较量
+'''
+
+# def work():
+#     print('hello')
+#
+#
+# if __name__ == '__main__':
+#     # 在主进程下开启线程
+#     t = Thread(target=work)
+#     t.start()
+#     print('主线程/主进程')
+#     '''
+#     打印结果:
+#     hello
+#     主线程/主进程
+#     '''
+#     print('分割线'.center(50, '*'))
+#     # 在主进程下开启子进程
+#     t = Process(target=work)
+#     t.start()
+#     print('主线程/主进程')
+#     '''
+#     打印结果:
+#     主线程/主进程
+#     hello
+#     '''
+
+
+'''
+同一进程内的线程共享该进程的数据？
+内存数据的共享问题
+'''
+
+
+# def work():
+#     global n
+#     n = 0
+#     print('子', n)
+
+
+# n = 100
+# p = Process(target=work)
+# p.start() # 子 0
+# p.join()
+# print('主', n)  # 主 100 , 毫无疑问子进程p已经将自己的全局的n改成了0,但改的仅仅是它自己的,查看父进程的n仍然为100
+
+# print('分割线'.center(50, '*'))
+#
+# n = 1
+# t = Thread(target=work)
+# t.start()  # 子 0
+# t.join()
+# print('主', n)  # 主 0 , 查看结果为0,因为同一进程内的线程之间共享进程内的数据
