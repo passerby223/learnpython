@@ -441,7 +441,7 @@ Python中使用线程二
 
 
 '''
-Thread类的其他方法
+Thread类的其他方法 
 Thread实例对象的方法
   # isAlive(): 返回线程是否活动的。
   # getName(): 返回线程名。
