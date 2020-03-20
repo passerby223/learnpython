@@ -6,6 +6,7 @@
 
 
 import time
+import threading
 from threading import Thread
 from multiprocessing import Process
 
@@ -452,14 +453,96 @@ threading模块提供的一些方法：
   # threading.activeCount(): 返回正在运行的线程数量，与len(threading.enumerate())有相同的结果。
 '''
 
+'''
+代码示例1
+'''
+# from threading import Thread
+# import threading
+# from multiprocessing import Process
+# import os
+#
+#
+# def work():
+#     time.sleep(3)
+#     print(threading.current_thread().getName())
+#
+#
+# # 在主进程下开启线程
+# t = Thread(target=work)
+# t.start()
+#
+# print(threading.current_thread().getName())
+# print(threading.current_thread())  # 主线程
+# print(threading.enumerate())  # 连同主线程在内有两个运行的线程
+# print(threading.active_count())
+# print('主线程/主进程')
 
-def task():
-    time.sleep(3)
-    print('PID:'.format(os.getpid()))
+'''
+打印结果:
+MainThread
+<_MainThread(MainThread, started 140735268892672)>
+[<_MainThread(MainThread, started 140735268892672)>, <Thread(Thread-1, started 123145307557888)>]
+主线程/主进程
+Thread-1
+'''
+
+'''
+代码示例2
+'''
+# def task():
+#     time.sleep(3)
+#     print('PID:{}'.format(os.getpid()))
+#
+#
+# t1 = threading.Thread(target=task)
+# t2 = threading.Thread(target=task)
+# t3 = threading.Thread(target=task)
+# start_time = time.time()
+# t1.start()
+# t2.start()
+# t3.start()
+# print('threading.currentThread():{}'.format(threading.currentThread()))
+# print('threading.enumerate(): {}'.format(threading.enumerate()))
+# print('threading.activeCount(): :{}'.format(threading.activeCount()))
+# print('t1线程名：{}'.format(t1.name))
+# print('t2线程未重命名前：{}'.format(t2.getName()))
+# t2.setName('我是线程2')
+# print('t2线程重命名后：{}'.format(t2.getName()))
+# print('t3线程名：{}'.format(t3.name))
+# print(t1.isAlive())  # True Return whether the thread is alive
+# print(t2.is_alive())  # True Return whether the thread is alive
+# print(t3.is_alive())  # True Return whether the thread is alive
+# time.sleep(5)
+# print(t1.isAlive())  # False Return whether the thread is alive
+# print(t2.is_alive())  # False Return whether the thread is alive
+# print(t3.is_alive())  # False Return whether the thread is alive
+# end_time = time.time()
+# spend_time = end_time - start_time
 
 
-t1 = Thread(target=task)
-print(t1.isAlive())
-print(t1.is_alive())
-t2 = Thread(target=task)
-t3 = Thread(target=task)
+# print('从所有线程启动到程序结束总共花费{}s'.format(spend_time))  # 从所有线程启动到程序结束总共花费5.002387285232544s 只可以是接近5秒，因为启动线程包括打印输出也需要花费时间。进一步说明了线程是并发执行的。
+
+
+'''
+join()方法
+代码示例
+'''
+from threading import Thread
+import time
+
+
+def sayhi(name):
+    time.sleep(2)
+    print('%s say hello' % name)
+
+
+t = Thread(target=sayhi, args=('egon',))
+t.start()
+t.join()
+print('主线程')
+print(t.is_alive())
+'''
+egon say hello
+主线程
+False
+'''
