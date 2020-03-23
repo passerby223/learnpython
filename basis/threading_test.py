@@ -299,26 +299,208 @@ False
 ''' 
  守护线程例2
 '''
-from threading import Thread
-import time
+# from threading import Thread
+# import time
+#
+#
+# def foo():
+#     print(123)
+#     time.sleep(1)
+#     print("end123")
+#
+#
+# def bar():
+#     print(456)
+#     time.sleep(3)
+#     print("end456")
+#
+#
+# t1 = Thread(target=foo)
+# t2 = Thread(target=bar)
+#
+# t1.daemon = True
+# t1.start()
+# t2.start()
+# print("main-------")
+
+'''
+同步锁
+ 多个线程抢占资源的情况
+import threading
+
+R = threading.Lock()
+# 加锁
+R.acquire()
+'''
+# 对公共数据的操作
+'''
+# 释放锁
+R.release()
+'''
+# from threading import Thread
+# import os, time
+#
+#
+# def work():
+#     global n
+#     temp = n
+#     time.sleep(0.1)
+#     n = temp - 1
+#     print('work:{}'.format(n))
+#
+#
+# n = 100
+# l = []
+# for i in range(100):
+#     p = Thread(target=work)
+#     l.append(p)
+#     p.start()
+# for p in l:
+#     p.join()
+#
+# print(n)  # 结果可能为99
+
+'''
+ 同步锁的引用
+'''
+# from threading import Thread, Lock
+# import os, time
+#
+# # 线程同步锁
+# lock = Lock()
+#
+#
+# def work():
+#     global n
+#     lock.acquire()
+#     temp = n
+#     time.sleep(0.1)
+#     n = temp - 1
+#     print('work:{}'.format(n))
+#     lock.release()
+#
+#
+# n = 100
+# l = []
+# for i in range(100):
+#     p = Thread(target=work)
+#     l.append(p)
+#     p.start()
+# for p in l:
+#     p.join()
+#
+# print(n)  # 结果肯定为0，由原来的并发执行变成串行，牺牲了执行效率保证了数据安全
 
 
-def foo():
-    print(123)
-    time.sleep(1)
-    print("end123")
+'''
+
+'''
+# 不加锁:并发执行,速度快,数据不安全
+from threading import current_thread, Thread, Lock
+import os, time
 
 
-def bar():
-    print(456)
+def task():
+    global n
+    print('%s is running' % current_thread().getName())
+    temp = n
+    time.sleep(0.5)
+    n = temp - 1
+
+
+if __name__ == '__main__':
+    n = 100
+    lock = Lock()
+    threads = []
+    start_time = time.time()
+    for i in range(100):
+        t = Thread(target=task)
+        threads.append(t)
+        t.start()
+    for t in threads:
+        t.join()
+
+    stop_time = time.time()
+    print('主:%s n:%s' % (stop_time - start_time, n))
+
+'''
+Thread-1 is running
+Thread-2 is running
+......
+Thread-100 is running
+主:0.5216062068939209 n:99
+'''
+
+# 不加锁:未加锁部分并发执行,加锁部分串行执行,速度慢,数据安全
+from threading import current_thread, Thread, Lock
+import os, time
+
+
+def task():
+    # 未加锁的代码并发运行
     time.sleep(3)
-    print("end456")
+    print('%s start to run' % current_thread().getName())
+    global n
+    # 加锁的代码串行运行
+    lock.acquire()
+    temp = n
+    time.sleep(0.5)
+    n = temp - 1
+    lock.release()
 
 
-t1 = Thread(target=foo)
-t2 = Thread(target=bar)
+if __name__ == '__main__':
+    n = 100
+    lock = Lock()
+    threads = []
+    start_time = time.time()
+    for i in range(100):
+        t = Thread(target=task)
+        threads.append(t)
+        t.start()
+    for t in threads:
+        t.join()
+    stop_time = time.time()
+    print('主:%s n:%s' % (stop_time - start_time, n))
 
-t1.daemon = True
-t1.start()
-t2.start()
-print("main-------")
+'''
+Thread-1 is running
+Thread-2 is running
+......
+Thread-100 is running
+主:53.294203758239746 n:0
+'''
+
+# 有的同学可能有疑问:既然加锁会让运行变成串行,那么我在start之后立即使用join,就不用加锁了啊,也是串行的效果啊
+# 没错:在start之后立刻使用jion,肯定会将100个任务的执行变成串行,毫无疑问,最终n的结果也肯定是0,是安全的,但问题是
+# start后立即join:任务内的所有代码都是串行执行的,而加锁,只是加锁的部分即修改共享数据的部分是串行的
+# 单从保证数据安全方面,二者都可以实现,但很明显是加锁的效率更高.
+# from threading import current_thread,Thread,Lock
+# import os,time
+# def task():
+#     time.sleep(3)
+#     print('%s start to run' %current_thread().getName())
+#     global n
+#     temp=n
+#     time.sleep(0.5)
+#     n=temp-1
+#
+#
+# if __name__ == '__main__':
+#     n=100
+#     lock=Lock()
+#     start_time=time.time()
+#     for i in range(100):
+#         t=Thread(target=task)
+#         t.start()
+#         t.join()
+#     stop_time=time.time()
+#     print('主:%s n:%s' %(stop_time-start_time,n))
+
+'''
+Thread-1 start to run
+Thread-2 start to run
+......
+Thread-100 start to run
+主:350.6937336921692 n:0 #耗时是多么的恐怖
+'''
