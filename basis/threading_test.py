@@ -32,6 +32,8 @@
 每一个进程中至少有一个线程。
 进程和线程的关系
 '''
+import os
+
 '''
 Python中使用线程一
 '''
@@ -619,4 +621,141 @@ Thread-100 start to run
 
 '''
 全局解释器锁GIL
+GIL介绍
+首先需要明确的一点是GIL并不是Python的特性，它是在实现Python解析器(CPython)时所引入的一个概念。
+
+Python也一样，同样一段代码可以通过CPython，PyPy，Psyco等不同的Python执行环境来执行。像其中的JPython就没有GIL。
+然而因为CPython是大部分环境下默认的Python执行环境。所以在很多人的概念里CPython就是Python，也就想当然的把GIL归结为Python语言的缺陷。
+所以这里要先明确一点：GIL并不是Python的特性，Python完全可以不依赖于GIL。
+
+简单来说，在Cpython解释器中，因为有GIL锁的存在同一个进程下开启的多线程，同一时刻只能有一个线程执行，无法利用多核优势。
+
+常见问题1
+我们有了GIL锁为什么还要自己在代码中加锁呢？
+
+GIL保护的是Python解释器级别的数据资源，自己代码中的数据资源就需要自己加锁防止竞争。如本模块所在文件夹basis目录下的GIL全局解释器锁流程图.png
+
+常见问题2
+有了GIL的存在，同一时刻同一进程中只有一个线程被执行，进程可以利用多核，但是开销大，而Python的多线程开销小，但却无法利用多核优势，也就是说Python这语言难堪大用。
+
+其实编程所解决的现实问题大致分为IO密集型和计算密集型。
+
+对于IO密集型的场景，Python的多线程编程完全OK，而对于计算密集型的场景，Python中有很多成熟的模块或框架如Pandas等能够提高计算效率。
 '''
+
+'''
+池 —— concurrent.futures
+Python标准模块--concurrent.futures
+concurrent.futures模块提供了高度封装的异步调用接口，其中：
+
+ThreadPoolExecutor：线程池
+
+ProcessPoolExecutor: 进程池
+
+借助上面两个类，我们可以很方便地创建进程池对象和线程池对象。
+
+p_pool = ProcessPoolExecutor(max_workers=5)  # 创建一个最多5个woker的进程池
+t_pool = ThreadPoolExecutor(max_workers=5)  # 创建一个最多5个woker的线程池
+可用方法介绍：
+# 基本方法
+#submit(fn, *args, **kwargs)
+提交任务
+
+# map(func, *iterables, timeout=None, chunksize=1) 
+取代for循环submit的操作
+
+# shutdown(wait=True) 
+相当于进程池的pool.close()+pool.join()操作
+wait=True，等待池内所有任务执行完毕回收完资源后才继续
+wait=False，立即返回，并不会等待池内的任务执行完毕
+但不管wait参数为何值，整个程序都会等到所有任务执行完毕
+submit和map必须在shutdown之前
+
+# result(timeout=None)
+取得结果
+
+# add_done_callback(fn)
+回调函数
+'''
+# from concurrent.futures import ProcessPoolExecutor
+# import random, time
+#
+# def task(n):
+#     print('{} is running!'.format(os.getpid()))
+#     time.sleep(random.randint(1, 3))
+#     return n ** 2
+#
+# executor = ProcessPoolExecutor(max_workers=3)
+# futures = []
+# for i in range(10):
+#     # 提交任务
+#     future = executor.submit(task, i)
+#     futures.append(future)
+# executor.shutdown()
+# print('>>>>>>')
+# for j in futures:
+#     print(j.result())  # 取得结果
+
+''' 
+map函数用法
+map取代了for+submit
+'''
+# from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+#
+# import os, time, random
+#
+#
+# def task(n):
+#     print('%s is runing' % os.getpid())
+#     time.sleep(random.randint(1, 3))
+#     return n ** 2
+#
+#
+# if __name__ == '__main__':
+#     executor = ThreadPoolExecutor(max_workers=3)
+#     executor.map(task, range(1, 100))  # map取代了for+submit
+
+
+''' 
+ 回调函数
+'''
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from multiprocessing import Pool
+import requests
+import json
+import os
+
+
+def get_page(url):
+    print('<进程%s> get %s' % (os.getpid(), url))
+    respone = requests.get(url)
+    if respone.status_code == 200:
+        return {'url': url, 'text': respone.text}
+
+
+def parse_page(res):
+    res = res.result()
+    print('<进程%s> parse %s' % (os.getpid(), res['url']))
+    parse_res = 'url:<%s> size:[%s]\n' % (res['url'], len(res['text']))
+    with open('db.txt', 'a') as f:
+        f.write(parse_res)
+
+
+if __name__ == '__main__':
+    urls = [
+        'https://www.baidu.com',
+        'https://www.python.org',
+        'https://www.openstack.org',
+        'https://help.github.com/',
+        'http://www.sina.com.cn/'
+    ]
+
+    # p=Pool(3)
+    # for url in urls:
+    #     p.apply_async(get_page,args=(url,),callback=pasrse_page)
+    # p.close()
+    # p.join()
+
+    p = ProcessPoolExecutor(3)
+    for url in urls:
+        p.submit(get_page, url).add_done_callback(parse_page)  # parse_page拿到的是一个future对象obj，需要用obj.result()拿到结果
