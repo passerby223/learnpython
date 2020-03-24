@@ -396,32 +396,32 @@ R.release()
 
 '''
 # 不加锁:并发执行,速度快,数据不安全
-from threading import current_thread, Thread, Lock
-import os, time
-
-
-def task():
-    global n
-    print('%s is running' % current_thread().getName())
-    temp = n
-    time.sleep(0.5)
-    n = temp - 1
-
-
-if __name__ == '__main__':
-    n = 100
-    lock = Lock()
-    threads = []
-    start_time = time.time()
-    for i in range(100):
-        t = Thread(target=task)
-        threads.append(t)
-        t.start()
-    for t in threads:
-        t.join()
-
-    stop_time = time.time()
-    print('主:%s n:%s' % (stop_time - start_time, n))
+# from threading import current_thread, Thread, Lock
+# import os, time
+#
+#
+# def task():
+#     global n
+#     print('%s is running' % current_thread().getName())
+#     temp = n
+#     time.sleep(0.5)
+#     n = temp - 1
+#
+#
+# if __name__ == '__main__':
+#     n = 100
+#     lock = Lock()
+#     threads = []
+#     start_time = time.time()
+#     for i in range(100):
+#         t = Thread(target=task)
+#         threads.append(t)
+#         t.start()
+#     for t in threads:
+#         t.join()
+#
+#     stop_time = time.time()
+#     print('主:%s n:%s' % (stop_time - start_time, n))
 
 '''
 Thread-1 is running
@@ -432,36 +432,36 @@ Thread-100 is running
 '''
 
 # 不加锁:未加锁部分并发执行,加锁部分串行执行,速度慢,数据安全
-from threading import current_thread, Thread, Lock
-import os, time
-
-
-def task():
-    # 未加锁的代码并发运行
-    time.sleep(3)
-    print('%s start to run' % current_thread().getName())
-    global n
-    # 加锁的代码串行运行
-    lock.acquire()
-    temp = n
-    time.sleep(0.5)
-    n = temp - 1
-    lock.release()
-
-
-if __name__ == '__main__':
-    n = 100
-    lock = Lock()
-    threads = []
-    start_time = time.time()
-    for i in range(100):
-        t = Thread(target=task)
-        threads.append(t)
-        t.start()
-    for t in threads:
-        t.join()
-    stop_time = time.time()
-    print('主:%s n:%s' % (stop_time - start_time, n))
+# from threading import current_thread, Thread, Lock
+# import os, time
+#
+#
+# def task():
+#     # 未加锁的代码并发运行
+#     time.sleep(3)
+#     print('%s start to run' % current_thread().getName())
+#     global n
+#     # 加锁的代码串行运行
+#     lock.acquire()
+#     temp = n
+#     time.sleep(0.5)
+#     n = temp - 1
+#     lock.release()
+#
+#
+# if __name__ == '__main__':
+#     n = 100
+#     lock = Lock()
+#     threads = []
+#     start_time = time.time()
+#     for i in range(100):
+#         t = Thread(target=task)
+#         threads.append(t)
+#         t.start()
+#     for t in threads:
+#         t.join()
+#     stop_time = time.time()
+#     print('主:%s n:%s' % (stop_time - start_time, n))
 
 '''
 Thread-1 is running
@@ -475,27 +475,29 @@ Thread-100 is running
 # 没错:在start之后立刻使用jion,肯定会将100个任务的执行变成串行,毫无疑问,最终n的结果也肯定是0,是安全的,但问题是
 # start后立即join:任务内的所有代码都是串行执行的,而加锁,只是加锁的部分即修改共享数据的部分是串行的
 # 单从保证数据安全方面,二者都可以实现,但很明显是加锁的效率更高.
-# from threading import current_thread,Thread,Lock
-# import os,time
+# from threading import current_thread, Thread, Lock
+# import os, time
+#
+#
 # def task():
 #     time.sleep(3)
-#     print('%s start to run' %current_thread().getName())
+#     print('%s start to run' % current_thread().getName())
 #     global n
-#     temp=n
+#     temp = n
 #     time.sleep(0.5)
-#     n=temp-1
+#     n = temp - 1
 #
 #
 # if __name__ == '__main__':
-#     n=100
-#     lock=Lock()
-#     start_time=time.time()
+#     n = 100
+#     lock = Lock()
+#     start_time = time.time()
 #     for i in range(100):
-#         t=Thread(target=task)
+#         t = Thread(target=task)
 #         t.start()
 #         t.join()
-#     stop_time=time.time()
-#     print('主:%s n:%s' %(stop_time-start_time,n))
+#     stop_time = time.time()
+#     print('主:%s n:%s' % (stop_time - start_time, n))
 
 '''
 Thread-1 start to run
@@ -503,4 +505,118 @@ Thread-2 start to run
 ......
 Thread-100 start to run
 主:350.6937336921692 n:0 #耗时是多么的恐怖
+'''
+
+'''
+死锁与可重入锁
+进程也有死锁与可重入锁，使用方法都是一样的，所以放到这里一起说：
+所谓死锁： 是指两个或两个以上的进程或线程在执行过程中，因争夺资源而造成的一种互相等待的现象，若无外力作用，它们都将无法推进下去。
+此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程，
+如下就是死锁:
+'''
+# from threading import Lock
+#
+# L = Lock()
+# L.acquire()
+# L.acquire()
+# print('哈哈哈哈')
+# L.release()
+# L.release()
+
+'''
+可重入锁
+解决方法：使用可重入锁，在Python中为了支持在同一线程中多次请求同一资源，提供了可重入锁RLock。
+这个RLock内部维护着一个Lock和一个counter变量，counter记录了acquire的次数，从而使得资源可以被多次require。
+直到一个线程所有的acquire都被release，其他的线程才能获得资源。
+上面的例子如果使用RLock代替Lock，则不会发生死锁：
+'''
+# from threading import RLock
+#
+# RL = RLock()
+# RL.acquire()
+# RL.acquire()
+# RL.acquire()
+# print('11111')
+# RL.release()
+# RL.release()
+# RL.release()
+
+'''
+典型问题：科学家吃面
+ 死锁问题
+'''
+# import time
+# from threading import Thread, Lock
+#
+# noodle_lock = Lock()
+# fork_lock = Lock()
+#
+#
+# def eat1(name):
+#     noodle_lock.acquire()
+#     print('%s 抢到了面条' % name)
+#     fork_lock.acquire()
+#     print('%s 抢到了叉子' % name)
+#     print('%s 吃面' % name)
+#     fork_lock.release()
+#     noodle_lock.release()
+#
+#
+# def eat2(name):
+#     fork_lock.acquire()
+#     print('%s 抢到了叉子' % name)
+#     time.sleep(1)
+#     noodle_lock.acquire()
+#     print('%s 抢到了面条' % name)
+#     print('%s 吃面' % name)
+#     noodle_lock.release()
+#     fork_lock.release()
+#
+#
+# for name in ['哪吒', 'egon', 'yuan']:
+#     t1 = Thread(target=eat1, args=(name,))
+#     t2 = Thread(target=eat2, args=(name,))
+#     t1.start()
+#     t2.start()
+
+
+'''
+使用可重入锁解决问题
+'''
+# import time
+# from threading import Thread, RLock
+#
+# noodle_lock = fork_lock = RLock()  # 必须使用同一个锁对象，否则还是会出现死锁的情况
+#
+#
+# def eat1(name):
+#     noodle_lock.acquire()
+#     print('eat1：%s 抢到了面条' % name)
+#     fork_lock.acquire()
+#     print('eat1：%s 抢到了叉子' % name)
+#     print('eat1：%s 吃面' % name)
+#     fork_lock.release()
+#     noodle_lock.release()
+#
+#
+# def eat2(name):
+#     fork_lock.acquire()
+#     print('eat2：%s 抢到了叉子' % name)
+#     time.sleep(1)
+#     noodle_lock.acquire()
+#     print('eat2：%s 抢到了面条' % name)
+#     print('eat2：%s 吃面' % name)
+#     noodle_lock.release()
+#     fork_lock.release()
+#
+#
+# for name in ['哪吒', 'egon', 'yuan']:
+#     t1 = Thread(target=eat1, args=(name,))
+#     t2 = Thread(target=eat2, args=(name,))
+#     t1.start()
+#     t2.start()
+
+
+'''
+全局解释器锁GIL
 '''
