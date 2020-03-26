@@ -162,7 +162,7 @@ print(sys.modules[__name__])
 
 # 导入其他模块，利用反射查找该模块是否存在某个方法。
 print('分割线'.center(50, '*'))
-from basis import module_test as mt
+from python_basis.basis import module_test as mt
 hasattr(mt, '_1test')
 print(hasattr(mt, '_1test'))
 getattr(mt, '_1test')() # from the test

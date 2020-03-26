@@ -4,7 +4,6 @@
 # @Author  : wenbin
 # @Software: PyCharm
 
-import json
 ''' 
 1. 模块
 1.1 什么是模块
@@ -53,7 +52,6 @@ import json
 模块可以包含可执行的语句和函数的定义，这些语句的目的是初始化模块，它们只在模块名第一次遇到导入import语句时才执行（import语句是可以在程序中的任意位置使用的，且针对同一个模块很import多次，为了防止你重复导入。
 python的优化手段是：第一次导入后就将模块名加载到内存了，后续的import语句仅是对已经加载大内存中的模块对象增加了一次引用，不会重新执行模块内的语句），如下 ：
 '''
-from basis import random_time_sys_os
 print('a')
 # import basis.random_time_sys_os
 # import basis.random_time_sys_os
