@@ -31,6 +31,7 @@ def serve():
     while 1:
         conn, addr = server.accept()
         t_pool.submit(comm, conn)
-    server.close()
+
 
 serve()
+server.close()
