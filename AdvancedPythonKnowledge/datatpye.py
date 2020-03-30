@@ -156,4 +156,94 @@ yield 关键字的使用，yield关键字只能在函数中中使用
 
 '''
 
+# def func():
+#     yield 1  # yield在函数中会返回一个生成器对象
+#     print('哈哈哈')
+#     yield '啦啦啦'
+#
+#
+# res = func()
+# print(res)  # <generator object func at 0x7f3088a533b8> 返回了一个生成器对象
+# print(next(res)) # 1
+# # 会将中间的print('哈哈哈') 的结果打印出来 # 哈哈哈
+# print(res.__next__()) # 啦啦啦
 
+''' 
+1.迭代器协议
+
+1.1迭代协议：一种是包含了`iter`方法的，另一种是包含了`getitem`方法的(比如str对象就没有`iter`方法，但是一样可以进行迭代操作)，
+只要对象中包含了这两种方法的任意一种，那么这个对象就可以进行迭代操作。也就是实现了迭代协议。
+
+1.2迭代器协议：
+1.2.1实现了迭代器协议的对象(实现方式：对象内部定义了一个iter()方法)
+1.2.2对象实现了__next__()方法
+1.2.3__next__()方法返回了某个数值(当然一般情况下，我们需要的是返回这个对象的特定数字，并且按照一定的顺序进行依次返回。)
+1.2.4__next__()方法需要在值取完时，抛出StopIteration错误信息
+
+1.3可迭代对象
+只要内部实现了迭代器协议就是一个可迭代对象(可迭代对象可以进行相关的迭代操作，比如for循环，map函数等)
+所有的迭代器都是可迭代对象
+
+2.迭代器
+只要对象中实现了迭代协议，那么这就是一个迭代对象。如何将一个可迭代对象转换为一个迭代器？
+
+'''
+# list1 = [1, 2, 3, 4, 5]
+# list2 = (1, 2, 3, 4, 5)
+# list1_iterator = iter(list1)
+# list2_iterator = iter(list2)
+# print(list1_iterator)  # <list_iterator object at 0x7f1684a26ba8> list类型的迭代器对象
+# print(list2_iterator)  # <tuple_iterator object at 0x7f6992c03908> tuple类型的迭代器对象
+
+'''可迭代对象和迭代器的区别
+可迭代对象：可以for循环遍历的都是可迭代对象，内部实现了__iter__()方法
+迭代器：内部实现了__iter__()方法，还实现了__next__()方法
+'''
+
+'''生成器和迭代器的区别
+生成器是迭代器的一种，如何区别迭代器和生成器？
+1.生成器相比迭代器多了三个方法：send()、close()、throw()
+send()：发送数据。可以与生成器交互进行数据传输
+close()：关闭生成器
+throw()：gen.throw(Exception,'Method throw called!')
+
+生成器<迭代器<可迭代对象
+'''
+
+''' 
+send()：发送数据。生成器对象的send()方法可以与生成器交互进行数据传输 代码示例
+'''
+def gen():
+    for i in range(1, 6):
+        print('-' * 30)
+        res_gen = yield i
+        print('res_gen:', res_gen)
+
+res = gen()
+# print(res) # <generator object gen at 0x7f97cb4543b8> 生成器对象
+print(next(res)) #
+print(res.send('俺是生成器对象发送过来的数据!'))
+print(next(res)) #
+print(res.__next__()) #
+
+''' 
+会有以下输出：
+
+------------------------------
+1
+res_gen: 俺是生成器对象发送过来的数据!
+------------------------------
+2
+res_gen: None
+------------------------------
+3
+res_gen: None
+------------------------------
+4
+'''
+
+''' 
+通过分析上边的输入结果可知：
+程序通过迭代获取第一次的数据时，先打印`------`，然后再返回yield的值1，然后程序暂停，然后再执行`print(res.send('俺是生成器对象发送过来的数据!'))`
+然后程序回到之前的yield处，然后执行`print('res_gen:', res_gen)`......
+'''
