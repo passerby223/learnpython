@@ -2,8 +2,10 @@
 # @File    : datatype.py
 # @Author  : Always be codding
 # @Software: PyCharm
+import os
 import timeit
 from collections import namedtuple
+from openpyxl import load_workbook  # 对已经存在的excel进行读写操作
 
 """
 1.元组和列表
@@ -213,18 +215,18 @@ throw()：gen.throw(Exception,'Method throw called!')
 ''' 
 send()：发送数据。生成器对象的send()方法可以与生成器交互进行数据传输 代码示例
 '''
-def gen():
-    for i in range(1, 6):
-        print('-' * 30)
-        res_gen = yield i
-        print('res_gen:', res_gen)
-
-res = gen()
-# print(res) # <generator object gen at 0x7f97cb4543b8> 生成器对象
-print(next(res)) #
-print(res.send('俺是生成器对象发送过来的数据!'))
-print(next(res)) #
-print(res.__next__()) #
+# def gen():
+#     for i in range(1, 6):
+#         print('-' * 30)
+#         res_gen = yield i
+#         print('res_gen:', res_gen)
+#
+# res = gen()
+# # print(res) # <generator object gen at 0x7f97cb4543b8> 生成器对象
+# print(next(res)) #
+# print(res.send('俺是生成器对象发送过来的数据!'))
+# print(next(res)) #
+# print(res.__next__()) #
 
 ''' 
 会有以下输出：
@@ -247,3 +249,36 @@ res_gen: None
 程序通过迭代获取第一次的数据时，先打印`------`，然后再返回yield的值1，然后程序暂停，然后再执行`print(res.send('俺是生成器对象发送过来的数据!'))`
 然后程序回到之前的yield处，然后执行`print('res_gen:', res_gen)`......
 '''
+
+'''使用推导式对excel中的内容进行读取操作'''
+
+from openpyxl import load_workbook  # 对已经存在的excel进行读写操作
+import os
+
+
+def read_data_from_excel(file_name, sheet_name):
+    # 创建一个workbook对象
+    wb = load_workbook(filename=file_name)
+    ws = wb[sheet_name]
+    column = ws.max_column + 1
+    print('column', column)  # column 9
+    row = ws.max_row + 1  # row 11
+    print('row', row)
+    data = ({ws.cell(1, j).value: ws.cell(i, j).value for j in range(1, column)} for i in range(2, row))
+    return data
+
+
+if __name__ == '__main__':
+    current_dir_path = os.path.dirname(__file__)
+    # print(current_dir_path)
+    return_data = read_data_from_excel(file_name=current_dir_path + os.sep + 'data.xlsx',
+                                       sheet_name='register')
+    print(return_data)
+    for i in return_data:
+        print(i)
+
+''' 
+递归函数
+'''
+# def re_func():
+#
