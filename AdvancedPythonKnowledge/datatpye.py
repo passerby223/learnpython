@@ -252,33 +252,62 @@ res_gen: None
 
 '''使用推导式对excel中的内容进行读取操作'''
 
-from openpyxl import load_workbook  # 对已经存在的excel进行读写操作
-import os
+# from openpyxl import load_workbook  # 对已经存在的excel进行读写操作
+# import os
+#
+#
+# def read_data_from_excel(file_name, sheet_name):
+#     # 创建一个workbook对象
+#     wb = load_workbook(filename=file_name)
+#     ws = wb[sheet_name]
+#     column = ws.max_column + 1
+#     # print('column', column)  # column 9
+#     row = ws.max_row + 1  # row 11
+#     # print('row', row)
+#     data = ({ws.cell(1, j).value: ws.cell(i, j).value for j in range(1, column)} for i in range(2, row))
+#     return data
+#
+#
+# if __name__ == '__main__':
+#     current_dir_path = os.path.dirname(__file__)
+#     # print(current_dir_path)
+#     return_data = read_data_from_excel(file_name=current_dir_path + os.sep + 'data.xlsx',
+#                                        sheet_name='register')
+#     # print(return_data)
+#     for i in return_data:
+#         print(i)
+
+''' 
+使用递归函数计算任意一个数的阶乘的结果
+'''
 
 
-def read_data_from_excel(file_name, sheet_name):
-    # 创建一个workbook对象
-    wb = load_workbook(filename=file_name)
-    ws = wb[sheet_name]
-    column = ws.max_column + 1
-    print('column', column)  # column 9
-    row = ws.max_row + 1  # row 11
-    print('row', row)
-    data = ({ws.cell(1, j).value: ws.cell(i, j).value for j in range(1, column)} for i in range(2, row))
-    return data
+def re_func(n):
+    '''
+    :arg n: 需要计算阶乘的数字
+    '''
+    if n == 1:
+        return 1
+    else:
+        return n * re_func(n - 1)
 
 
 if __name__ == '__main__':
-    current_dir_path = os.path.dirname(__file__)
-    # print(current_dir_path)
-    return_data = read_data_from_excel(file_name=current_dir_path + os.sep + 'data.xlsx',
-                                       sheet_name='register')
-    print(return_data)
-    for i in return_data:
-        print(i)
+    num = 5
+    result = re_func(num)
+    print('{}的阶乘 = {} = {}'.format(num, '*'.join([str(i) for i in range(1, num + 1)]), result))
 
-''' 
-递归函数
+'''递归函数实现斐波那契数列
+斐波那契数列：[1,1,2,3,5,8,13,21,34....],第一个数是1，后面的数等于前面两个数相加的结果
 '''
-# def re_func():
+
+# yield实现
+# def fib_loop_while(n):
+#     a, b = 0, 1
+#     for i in range(0, n):
+#         a, b = b, a + b
+#         yield a
 #
+#
+# for i in fib_loop_while(20):
+#     print(i, end=' ')
