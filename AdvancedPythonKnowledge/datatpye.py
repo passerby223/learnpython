@@ -282,24 +282,35 @@ res_gen: None
 '''
 
 
-def re_func(n):
-    '''
-    :arg n: 需要计算阶乘的数字
-    '''
-    if n == 1:
-        return 1
-    else:
-        return n * re_func(n - 1)
-
-
-if __name__ == '__main__':
-    num = 5
-    result = re_func(num)
-    print('{}的阶乘 = {} = {}'.format(num, '*'.join([str(i) for i in range(1, num + 1)]), result))
+# def re_func(n):
+#     '''
+#     :arg n: 需要计算阶乘的数字
+#     '''
+#     if n == 1:
+#         return 1
+#     else:
+#         return n * re_func(n - 1)
+#
+#
+# if __name__ == '__main__':
+#     num = 5
+#     result = re_func(num)
+#     print('{}的阶乘 = {} = {}'.format(num, '*'.join([str(i) for i in range(1, num + 1)]), result))
 
 '''递归函数实现斐波那契数列
 斐波那契数列：[1,1,2,3,5,8,13,21,34....],第一个数是1，后面的数等于前面两个数相加的结果
 '''
+
+
+def fibonacci_sequence(n):
+    if n == 1 or n == 2:
+        return 1
+    else:
+        return fibonacci_sequence(n - 1) + fibonacci_sequence(n - 2)
+
+
+# 打印1-50内的斐波拉切数列
+print(fibonacci_sequence(3))
 
 # yield实现
 # def fib_loop_while(n):
