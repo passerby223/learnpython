@@ -13,7 +13,7 @@
     background: #1E90FF;
 }
 
- /*.title 类选择器 */
+/*.title 类选择器 */
 .title {
     /*background: crimson;*/
     /*设置文本颜色*/
@@ -32,6 +32,24 @@
     text-align: center;
     /*设置浮动*/
     float: left;
+}
+
+.left_menu {
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 300px;
+    height: 1000px;
+    background-color: #d2edde;
+}
+
+.content {
+    position: absolute;
+    top: 120px;
+    left: 320px;
+    width: 1580px;
+    height: 1000px;
+    background-color: #d2edde;
 }
 
 /* #main_title id选择器 */
@@ -56,22 +74,38 @@
 /*    text-align: center;*/
 /*}*/
 
- /*.menu_list li 层级选择器：选中class名为menu_list下的li*/
-.menu_list li{
+/*.menu_list li 层级选择器：选中class名为menu_list下的li*/
+.menu_list li {
     color: #fff;
+    font: bold 22px/100px 微软雅黑;
+    width: 230px;
+    height: 100px;
     /*设置浮动*/
     float: left;
     /*设置去掉li前边的符号*/
     list-style: none;
-    font: bold 22px/100px 微软雅黑;
-    width: 290px;
-    height: 100px;
+    text-align: center;
 }
 
-.menu_list ul{
-    /*设置ul外边距为0px*/
-    margin: 0;
+.login_logout a {
+    color: #fff;
+    font: bold 16px/100px 微软雅黑;
+    float: right;
+    margin-top: 4px;
+    margin-right: 30px;
+    text-decoration: none;
+
 }
+
+/*去除a标签的hover事件*/
+.login_logout a:hover {
+    text-decoration: none;
+}
+
+.menu_list li:hover {
+    background-color: #96bbed;
+}
+
 
 /* .top_menu, .title, .menu_list, .p  组选择器 */
 /*.top_menu, .title, .menu_list, .p {*/
