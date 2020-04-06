@@ -1,0 +1,79 @@
+.top_menu {
+    /*color: crimson;*/
+    /*设置div高度 宽度默认与父级标签的宽度大小相同*/
+    height: 100px;
+    /*设置div标签的背景颜色 3种方式*/
+    /*第一种，通过颜色的单词来设置颜色*/
+    /*background: black;*/
+    /*第二种，通过rgb设置颜色*/
+    /*background: rgb(0, 191, 255);*/
+    /*第二种，通过rgba设置颜色，RGBa扩展了RGB颜色模式，它包含了阿尔法通道，允许设定一个颜色的透明度。 a 表示透明度：0=透明；1=不透明；*/
+    /*background: rgba(0, 191, 255, 0.7);*/
+    /*第三种，通过十六进制设置颜色*/
+    background: #1E90FF;
+}
+
+ /*.title 类选择器 */
+.title {
+    /*background: crimson;*/
+    /*设置文本颜色*/
+    color: #ffffff;
+    /*设置字体高度*/
+    width: 450px;
+    /*设置字体相关属性
+    font-weight ——> 指定字体的粗细程度：bold：字体加粗 normal：正常字体
+    font-size CSS 属性指定字体的大小 ——> 32px
+    font-family ——> 字体：微软雅黑
+    line-height CSS 属性用于设置多行元素的空间量，如多行文本的间距。 ——> 行高 100px
+        可以通过是设置行高和父级div块元素一样高来设置垂直居中的效果
+    */
+    font: bold 32px/100px 微软雅黑;
+    /*设置文字水平居中*/
+    text-align: center;
+    /*设置浮动*/
+    float: left;
+}
+
+/* #main_title id选择器 */
+/*#main_title {*/
+/*    !*background: crimson;*!*/
+/*    !*设置文本颜色*!*/
+/*    color: #ffffff;*/
+/*    !*设置字体高度*!*/
+/*    width: 350px;*/
+/*    !*设置字体相关属性*/
+/*    font-weight ——> 指定字体的粗细程度：bold：字体加粗 normal：正常字体*/
+/*    font-size CSS 属性指定字体的大小 ——> 32px*/
+/*    font-family ——> 字体：微软雅黑.menu_list li 层级选择器：选中class名为menu_list下的li*/
+/*.menu_list li{*/
+/*    color: crimson;*/
+/*}*/
+/*    line-height CSS 属性用于设置多行元素的空间量，如多行文本的间距。 ——> 行高 100px*/
+/*        可以通过是设置行高和父级div块元素一样高来设置垂直居中的效果*/
+/*    *!*/
+/*    font: normal 32px/100px 微软雅黑;*/
+/*    !*设置文字水平居中*!*/
+/*    text-align: center;*/
+/*}*/
+
+ /*.menu_list li 层级选择器：选中class名为menu_list下的li*/
+.menu_list li{
+    color: #fff;
+    /*设置浮动*/
+    float: left;
+    /*设置去掉li前边的符号*/
+    list-style: none;
+    font: bold 22px/100px 微软雅黑;
+    width: 290px;
+    height: 100px;
+}
+
+.menu_list ul{
+    /*设置ul外边距为0px*/
+    margin: 0;
+}
+
+/* .top_menu, .title, .menu_list, .p  组选择器 */
+/*.top_menu, .title, .menu_list, .p {*/
+/*    color: deeppink;*/
+/*}*/
