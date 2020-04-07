@@ -27,7 +27,7 @@
     line-height CSS 属性用于设置多行元素的空间量，如多行文本的间距。 ——> 行高 100px
         可以通过是设置行高和父级div块元素一样高来设置垂直居中的效果
     */
-    font: bold 32px/100px 微软雅黑;
+    font: normal 32px/100px 微软雅黑;
     /*设置文字水平居中*/
     text-align: center;
     /*设置浮动*/
@@ -40,7 +40,29 @@
     left: 0;
     width: 300px;
     height: 1000px;
-    background-color: #d2edde;
+    background-color: #fdfbff;
+}
+
+.left_menu_title {
+    float: left;
+    font: normal 28px/100px 微软雅黑;
+    height: 100px;
+    width: 100%;
+    color: #fff;
+    background-color: #1E90FF;
+    text-indent: 50px;
+}
+
+.left_menu_list li{
+    float: left;
+    height: 60px;
+    width: 100%;
+    font: normal 22px/60px 微软雅黑;
+    color: #949292;
+    text-indent: 50px;
+    border-bottom: solid 1px #e3e2ed;
+
+
 }
 
 .content {
@@ -49,8 +71,56 @@
     left: 320px;
     width: 1580px;
     height: 1000px;
-    background-color: #d2edde;
+    background-color: #fdfbff;
 }
+
+
+/*.menu_list li 层级选择器：选中class名为menu_list下的li*/
+.menu_list li {
+    color: #fff;
+    font: normal 22px/100px 微软雅黑;
+    width: 230px;
+    height: 100px;
+    /*设置浮动*/
+    float: left;
+    /*设置去掉li前边的符号*/
+    list-style: none;
+    text-align: center;
+}
+
+.login_logout a {
+    color: #fff;
+    font: normal 16px/100px 微软雅黑;
+    float: right;
+    margin-top: 4px;
+    margin-right: 30px;
+    text-decoration: none;
+
+}
+
+/*去除a标签的hover事件*/
+.login_logout a:hover {
+    text-decoration: none;
+}
+
+.left_menu_list a:hover {
+    text-decoration: none;
+}
+
+.left_menu_list li:hover {
+    background-color: #e8e6ed;
+}
+
+.menu_list li:hover {
+    background-color: #96bbed;
+}
+
+
+/* .top_menu, .title, .menu_list, .p  组选择器 */
+/*.top_menu, .title, .menu_list, .p {*/
+/*    color: deeppink;*/
+/*}*/
+
 
 /* #main_title id选择器 */
 /*#main_title {*/
@@ -72,42 +142,4 @@
 /*    font: normal 32px/100px 微软雅黑;*/
 /*    !*设置文字水平居中*!*/
 /*    text-align: center;*/
-/*}*/
-
-/*.menu_list li 层级选择器：选中class名为menu_list下的li*/
-.menu_list li {
-    color: #fff;
-    font: bold 22px/100px 微软雅黑;
-    width: 230px;
-    height: 100px;
-    /*设置浮动*/
-    float: left;
-    /*设置去掉li前边的符号*/
-    list-style: none;
-    text-align: center;
-}
-
-.login_logout a {
-    color: #fff;
-    font: bold 16px/100px 微软雅黑;
-    float: right;
-    margin-top: 4px;
-    margin-right: 30px;
-    text-decoration: none;
-
-}
-
-/*去除a标签的hover事件*/
-.login_logout a:hover {
-    text-decoration: none;
-}
-
-.menu_list li:hover {
-    background-color: #96bbed;
-}
-
-
-/* .top_menu, .title, .menu_list, .p  组选择器 */
-/*.top_menu, .title, .menu_list, .p {*/
-/*    color: deeppink;*/
 /*}*/
