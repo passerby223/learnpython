@@ -53,7 +53,7 @@
     text-indent: 50px;
 }
 
-.left_menu_list li{
+.left_menu_list li {
     float: left;
     height: 60px;
     width: 100%;
@@ -61,8 +61,23 @@
     color: #949292;
     text-indent: 50px;
     border-bottom: solid 1px #e3e2ed;
+    background-image: url("../image/arrow-ios-downward.png");
+    background-repeat: no-repeat;
+    background-position: 200px;
 
 
+}
+
+.project_info {
+    width: 240px;
+    height: 200px;
+    border: solid 1px #9297a2;
+    margin-top: 40px;
+    margin-left: 15px;
+    float: left;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .content {
@@ -72,6 +87,38 @@
     width: 1580px;
     height: 1000px;
     background-color: #fdfbff;
+    padding-left: 40px;
+}
+
+.project_name {
+    font: normal 25px/50px 微软雅黑;
+    text-align: center;
+    width: 100%;
+    height: 50px;
+    background-color: #95caff;
+    color: black;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.project_info p {
+    font: normal 20px/35px 微软雅黑;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.project_info a {
+    font: normal 20px/50px 微软雅黑;
+    color: #fff;
+    background-color: #74afff;
+    border-radius: 5px;
+}
+
+.project_info img {
+    margin-top: 67px;
+}
+
+.project_info a:hover {
+    text-decoration: none;
 }
 
 
