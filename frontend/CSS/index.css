@@ -106,11 +106,17 @@
     color: rgba(0, 0, 0, 0.5);
 }
 
+
 .project_info a {
     font: normal 20px/50px 微软雅黑;
     color: #fff;
     background-color: #74afff;
-    border-radius: 7px;
+    border-radius: 5px;
+}
+
+
+.project_info delete_button {
+    width: 1000px;
 }
 
 .project_info img {
@@ -119,6 +125,7 @@
 
 .project_info a:hover {
     text-decoration: none;
+    color: #ff5470;
 }
 
 
