@@ -1,0 +1,109 @@
+Status,Parent Suite,Sub Suite,Name,Description
+failed,TestCase.Dispatch,TestCheck,test_01_CreateCheck,"创建check作业,校验信息"
+failed,TestCase.Dispatch,TestCheck,test_17_Stop_check_Dispatchs,批量终止check调度
+passed,TestCase.Dispatch,TestCheck,test_02_CtrateChecks,"一次创建多个check作业,校验信息"
+passed,TestCase.Dispatch,TestCheck,test_03_Check_version,"创建check,校验版本"
+passed,TestCase.Dispatch,TestCheck,test_04_Update_Check_Name_and_checkVersion,"check,重命名,未生成新版本"
+passed,TestCase.Dispatch,TestCheck,test_05_Start_And_Stop_Dispatch,验证启用spark调度
+passed,TestCase.Dispatch,TestCheck,test_06_Update_Workflow_DispatchMethond_And_Msg,修改workflow调度方式与通知
+passed,TestCase.Dispatch,TestCheck,test_07_Update_Check_Version,"单个作业进行编辑,验证版本"
+passed,TestCase.Dispatch,TestCheck,test_08_Update_Check_Name,"作业更改名称,验证版本"
+passed,TestCase.Dispatch,TestCheck,test_09_Check_timed_execution,workflow定时执行spark
+passed,TestCase.Dispatch,TestCheck,test_10_Check_manually_execution,workflow手动执行
+passed,TestCase.Dispatch,TestCheck,test_11_Check_result_check,workflow结果校验
+passed,TestCase.Dispatch,TestCheck,test_12_check_dagNode_kill,kill dagNode
+passed,TestCase.Dispatch,TestCheck,test_13_check_dagNode_rerun,rerun dagNode
+passed,TestCase.Dispatch,TestCheck,test_14_check_dagNode_set_dagnode_as_a_success,rerun dagNode
+passed,TestCase.Dispatch,TestCheck,test_15_Check_Recall, 回溯操作成功，生成正确数量的dag
+passed,TestCase.Dispatch,TestCheck,test_16_Check_Update_DispatchType,修改调度方式 版本加1
+failed,TestCase.Dispatch,TestDistcp,test_17_Stop_Distcp_Dispatchs,批量终止check调度
+passed,TestCase.Dispatch,TestDistcp,test_01_Create_Distcp,"创建check作业,校验信息"
+passed,TestCase.Dispatch,TestDistcp,test_02_Ctrate_Distcps,"一次创建多个distcp作业,校验信息"
+passed,TestCase.Dispatch,TestDistcp,test_03_Distcp_version,创建Distcp 校验版本
+passed,TestCase.Dispatch,TestDistcp,test_04_Update_Distcp_Name_and_checkVersion,"Distcp,重命名,未生成新版本"
+passed,TestCase.Dispatch,TestDistcp,test_05_Start_And_Stop_Distcp_Dispatch,验证启用Distcp调度
+passed,TestCase.Dispatch,TestDistcp,test_06_Update_Workflow_Distcp_DispatchMethond_And_Msg,修改workflow调度方式与通知
+passed,TestCase.Dispatch,TestDistcp,test_07_Update_Distcp_Version,"单个作业进行编辑,验证版本"
+passed,TestCase.Dispatch,TestDistcp,test_08_Update_Distcp_Name,"作业更改名称,验证版本"
+passed,TestCase.Dispatch,TestDistcp,test_09_Distcp_timed_execution,workflow定时执行touch
+passed,TestCase.Dispatch,TestDistcp,test_10_Distcp_manually_execution,workflow手动执行
+passed,TestCase.Dispatch,TestDistcp,test_11_Distcp_result_check,workflow结果校验
+passed,TestCase.Dispatch,TestDistcp,test_12_Distcp_dagNode_kill,kill dagNode
+passed,TestCase.Dispatch,TestDistcp,test_13_Distcp_dagNode_rerun,rerun dagNode
+passed,TestCase.Dispatch,TestDistcp,test_14_Distcp_dagNode_set_dagnode_as_a_success,rerun dagNode
+passed,TestCase.Dispatch,TestDistcp,test_15_Distcp_Recall, 回溯操作成功，生成正确数量的dag
+passed,TestCase.Dispatch,TestDistcp,test_16_Distcp_Update_DispatchType,修改调度方式 版本加1
+failed,TestCase.Dispatch,TestHive,test_17_Stop_Hive_Dispatchs,批量终止check调度
+passed,TestCase.Dispatch,TestHive,test_01_CreateHive,"创建Job,校验信息"
+passed,TestCase.Dispatch,TestHive,test_02_Check_Hive_version,"首次创建hive,校验版本"
+passed,TestCase.Dispatch,TestHive,test_03_Update_Hive_Name_and_checkVersion,"创建workflow,重命名,未生成新版本"
+passed,TestCase.Dispatch,TestHive,test_04_Start_And_Stop_Hivedispatch,验证启用调度
+passed,TestCase.Dispatch,TestHive,test_05_Update_Hive_DispatchMethond_And_Msg,修改hive调度方式与通知
+passed,TestCase.Dispatch,TestHive,test_06_Update_Hive_Version,"单个作业进行编辑,验证版本"
+passed,TestCase.Dispatch,TestHive,test_07_Update_Hive_JobName,"作业更改名称,验证版本"
+passed,TestCase.Dispatch,TestHive,test_08_Create_Hives,"一次创建多个hive作业,校验信息"
+passed,TestCase.Dispatch,TestHive,test_09_Execute_Hive,"作业点击执行,校验DAG"
+passed,TestCase.Dispatch,TestHive,test_10_Update_Hive_ChickVersion,"更新作业,校验版本+1"
+passed,TestCase.Dispatch,TestHive,test_11_Hive_timed_execution,workflow定时执行
+passed,TestCase.Dispatch,TestHive,test_12_Hive_manually_execution,workflow手动执行
+passed,TestCase.Dispatch,TestHive,test_13_Hive_result_check,workflow结果校验
+passed,TestCase.Dispatch,TestHive,test_14_Hive_dagNode_kill,kill dagNode
+passed,TestCase.Dispatch,TestHive,test_15_Hive_dagNode_rerun,rerun dagNode
+passed,TestCase.Dispatch,TestHive,test_16_Hive_Update_DispatchType,修改调度方式 版本加1
+passed,TestCase.Dispatch,TestHive,test_16_Hive_dagNode_set_dagnode_as_a_success,rerun dagNode
+passed,TestCase.Dispatch,TestHive,test_17_Hive_Recall, 回溯操作成功，生成正确数量的dag
+passed,TestCase.Dispatch,TestProject,test_01_Project_Create,创建项目并验证
+passed,TestCase.Dispatch,TestProject,test_02_Project_Rename,项目重命名并验证
+passed,TestCase.Dispatch,TestProject,test_03_Project_Transfer,项目归属转让
+passed,TestCase.Dispatch,TestProject,test_04_Project_Auth,"授权,校验信息"
+passed,TestCase.Dispatch,TestProject,test_05_Project_RemoveAuth,"取消授权,校验信息"
+passed,TestCase.Dispatch,TestProject,test_06_Project_Create,验证 未同步 授权失败
+passed,TestCase.Dispatch,TestProject,test_07_Workflow_Create,"创建workflow,校验信息"
+passed,TestCase.Dispatch,TestProject,test_08_Workflows_Create,"创建workflow,校验信息"
+failed,TestCase.Dispatch,TestSpark,test_17_Stop_Spark_Dispatchs,批量终止check调度
+passed,TestCase.Dispatch,TestSpark,test_01_CreateSpark,"创建spark,校验信息"
+passed,TestCase.Dispatch,TestSpark,test_02_CtrateSparks,"一次创建多个spark作业,校验信息"
+passed,TestCase.Dispatch,TestSpark,test_03_spark_version,"创建spark,校验版本"
+passed,TestCase.Dispatch,TestSpark,test_04_Update_spark_Name_and_checkVersion,"spark,重命名,未生成新版本"
+passed,TestCase.Dispatch,TestSpark,test_05_Start_And_Stop_Dispatch,验证启用spark调度
+passed,TestCase.Dispatch,TestSpark,test_06_Update_Workflow_DispatchMethond_And_Msg,修改workflow调度方式与通知
+passed,TestCase.Dispatch,TestSpark,test_07_Update_Spark_Version,"单个作业进行编辑,验证版本"
+passed,TestCase.Dispatch,TestSpark,test_08_Update_Spark_Name,"作业更改名称,验证版本"
+passed,TestCase.Dispatch,TestSpark,test_09_Spark_timed_execution,workflow定时执行spark
+passed,TestCase.Dispatch,TestSpark,test_10_Spark_manually_execution,workflow手动执行
+passed,TestCase.Dispatch,TestSpark,test_11_Spark_result_check,workflow结果校验
+passed,TestCase.Dispatch,TestSpark,test_12_spark_dagNode_kill,kill dagNode
+passed,TestCase.Dispatch,TestSpark,test_13_spark_dagNode_rerun,rerun dagNode
+passed,TestCase.Dispatch,TestSpark,test_14_spark_dagNode_set_dagnode_as_a_success,rerun dagNode
+passed,TestCase.Dispatch,TestSpark,test_15_Spark_Recall, 回溯操作成功，生成正确数量的dag
+passed,TestCase.Dispatch,TestSpark,test_16_Spark_Create_Shell, 运行使用shell新建的且设置有作业状态通知提醒的spark作业
+passed,TestCase.Dispatch,TestSpark,test_16_Spark_Update_DispatchType,修改调度方式 版本加1
+failed,TestCase.Dispatch,TestTouch,test_17_Stop_Touch_Dispatchs,批量终止check调度
+passed,TestCase.Dispatch,TestTouch,test_01_CreateTouch,"创建check作业,校验信息"
+passed,TestCase.Dispatch,TestTouch,test_02_CtrateTouchs,"一次创建多个touch作业,校验信息"
+passed,TestCase.Dispatch,TestTouch,test_03_Touch_version,"创建check,校验版本"
+passed,TestCase.Dispatch,TestTouch,test_04_Update_Touch_Name_and_checkVersion,"check,重命名,未生成新版本"
+passed,TestCase.Dispatch,TestTouch,test_05_Start_And_Stop_Touch_Dispatch,验证启用touch调度
+passed,TestCase.Dispatch,TestTouch,test_06_Update_Workflow_Touch_DispatchMethond_And_Msg,修改workflow调度方式与通知
+passed,TestCase.Dispatch,TestTouch,test_07_Update_Touch_Version,"单个作业进行编辑,验证版本"
+passed,TestCase.Dispatch,TestTouch,test_08_Update_Touch_Name,"作业更改名称,验证版本"
+passed,TestCase.Dispatch,TestTouch,test_09_Touch_timed_execution,workflow定时执行touch
+passed,TestCase.Dispatch,TestTouch,test_10_Touch_manually_execution,workflow手动执行
+passed,TestCase.Dispatch,TestTouch,test_11_Touch_result_check,workflow结果校验
+passed,TestCase.Dispatch,TestTouch,test_12_Touch_dagNode_kill,kill dagNode
+passed,TestCase.Dispatch,TestTouch,test_13_Touch_dagNode_rerun,rerun dagNode
+passed,TestCase.Dispatch,TestTouch,test_14_Touch_dagNode_set_dagnode_as_a_success,rerun dagNode
+passed,TestCase.Dispatch,TestTouch,test_15_Touch_Recall, 回溯操作成功，生成正确数量的dag
+passed,TestCase.Dispatch,TestTouch,test_16_Touch_Update_DispatchType,修改调度方式 版本加1
+passed,TestCase.Meta,TestMetaStruct,test_01_CreateStruct,"成功建表,验证字段, 参数对应正确"
+passed,TestCase.Meta,TestMetaStruct,test_02_CreateStruct,"成功建表,验证字段, 参数对应正确"
+passed,TestCase.Meta,TestMetaStruct,test_03_CreateStruct,"成功建表,验证字段, 参数对应正确"
+passed,TestCase.Meta,TestMetaStruct,test_04_CreateStruct,"成功建表,验证字段, 参数对应正确"
+passed,TestCase.Meta,TestMetaStruct,test_05_CreateStruct,"成功建表,验证字段, 参数对应正确"
+passed,TestCase.Meta,TestMetaStruct,test_06_Search,"成功建表,搜索成功"
+passed,TestCase.Meta,TestMetaStruct,test_07_Update,"修改表, 参数对应正确"
+failed,TestCase.Meta,TestMapCreate,test_05_Delete_Hives,删除多条Hive
+passed,TestCase.Meta,TestMapCreate,test_01_CreateHive,"成功建表,验证字段, 参数对应正确"
+passed,TestCase.Meta,TestMapCreate,test_02_CreateFileStructure,新建数据结构成功
+passed,TestCase.Meta,TestMapCreate,test_03_Update_Hive,修改HIVE 校验
+passed,TestCase.Meta,TestMapCreate,test_03_Update_Hive,删除HIVE 校验
