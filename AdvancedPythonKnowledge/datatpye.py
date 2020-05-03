@@ -281,7 +281,6 @@ res_gen: None
 使用递归函数计算任意一个数的阶乘的结果
 '''
 
-
 # def re_func(n):
 #     '''
 #     :arg n: 需要计算阶乘的数字
@@ -309,8 +308,15 @@ def fibonacci_sequence(n):
         return fibonacci_sequence(n - 1) + fibonacci_sequence(n - 2)
 
 
-# 打印1-50内的斐波拉切数列
-print(fibonacci_sequence(3))
+# 打印斐波拉切数列中的前n个数
+while True:
+    print()
+    nums = input("请输入需要打印斐波拉契数列中的数字个数：")
+    if nums.isdigit():
+        for i in range(1, int(nums) + 1):
+            print(fibonacci_sequence(i), end='\t')
+    else:
+        print("输入有误!请重新输入!")
 
 # yield实现
 # def fib_loop_while(n):
