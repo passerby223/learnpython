@@ -195,5 +195,139 @@ JavaScript是web上一种功能强大的编程语言，用于开发交互式的w
 * 条件运算符：`==(代表相等，比较的两个值内容相等即可，数据类型可以不一样)`, `===(代表严格相等:数据类型和值都相等)`, `>`, `>=`, `<`, `<=`, `!=`
 * 逻辑运算符：`&&(并且)`, `||(或者)`, `!(否)`
 
+验证`==`和`===`的区别
+```javascript
+var bookPrice = 45.9;
+var bookPrice1 = "45.9";
+console.log(bookPrice == bookPrice1);//true
+console.log(bookPrice === bookPrice1);//false
+```
+
 ### 条件语句
+* `if ... else if ... else...`语句
+    ```javascript
+    var age = 21;
+    if (age > 21) {
+        console.log("年龄大于21岁!");
+    } else if (age === 21) {
+        console.log("年龄等于21岁!");
+    } else {
+        console.log("年龄小于21岁!");
+    }
+    //输出：年龄等于21岁!
+    ```
+* `switch`语句
+    ```javascript
+    var a = 9, b = 7;
+    switch (a - b) {
+        case 4:
+            console.log(a + " - " + b + " = " + 4);
+            break;
+        case 2:
+            console.log(a + " - " + b + " = " + 2);
+            break;
+        case 3:
+            console.log(a + " - " + b + " = " + 3);
+            break;
+        default:
+            console.log(a + " - " + b + " = 默认值");
+            break;
+    }
+    //输出：9 - 7 = 2
+    ```
+
+### 函数
+#### 函数定义
+定于本函数的关键字`function`,函数内的代码块包裹在花括号内
+```javascript
+//函数定义 使用function关键字
+function test() {
+    console.log("这是一个函数!");
+}
+
+//函数调用
+test();
+//输出：这是一个函数!
+```
+#### 函数参数
+```javascript
+//函数定义 使用function关键字
+function addition(a, b) {
+    result = (a + b);
+    console.log(a + " + " + b + " = " + result);
+}
+
+//函数调用
+addition(100, 199);
+//输出：100 + 199 = 299
+```
+#### 函数返回值
+```javascript
+//在使用return语句时，程序执行到return语句时会立刻终止，并返回函数的返回值
+function addition(a, b) {
+    result = (a + b);
+    return result;
+}
+
+//函数调用
+var res = addition(100, 199);
+console.log("res = " + res);
+//输出：res = 299
+```
+### 对象
+#### 创建对象
+创建对象的两种方式
+* 方式一
+    ```javascript
+    objA = new Object();
+    ```
+* 方式二，类似于Python中的字典
+    ```javascript
+    var objB = {};
+    ```
+#### 对象属性
+* 对象的属性以键值对(name:value)的形式定义，属性由逗号分离。
+    ```javascript
+    var objC = {name: "python", age: 21, gender: "男"};
+    ```
+* 创建对象属性声明可以横跨多行
+    ```javascript
+    var objD = {
+        name: "小花花",
+        age: "21",
+        gender: "女"
+    };
+    ```
+#### 操作对象的属性
+```javascript
+var objC = {name: "小华华", age: 21, gender: "男"};
+//获取objC对象的属性
+console.log(objC.name);//小华华
+console.log(objC["age"]);//21
+console.log(objC);//{name: "小华华", age: 21, gender: "男"}
+//修改objC对象的属性值
+objC.name = "小刚刚";
+console.log(objC);//{name: "小刚刚", age: 21, gender: "男"}
+objC["age"] = 22;
+console.log(objC);//{name: "小刚刚", age: 22, gender: "男"}
+```
+
+#### 对象方法
+```javascript
+//对象方法：对象方法是作为属性来存储的函数
+var objD = {
+    name: "小花花",
+    age: "21",
+    gender: "女",
+    func: function (a, b) {
+        alert("对象方法");
+        this.name = "大花花";//this来修改了objD对象的name属性的值为"大花花"
+        return a + b;
+    }
+};
+
+res = objD.func(10, 15);
+console.log(res);//25
+console.log(objD);//{name: "大花花", age: "21", gender: "女", func: ƒ}
+```
 
