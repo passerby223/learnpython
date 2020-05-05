@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../CSS/reset.css" type="text/css">
     <style>
         body {
-            /*background-image: url("../image/test2.jpg");*/
+            /*background-images: url("../images/test2.jpg");*/
             background-color: lavender;
         }
     </style>
@@ -46,21 +46,43 @@
     <div class="left_menu_title">项目管理
     </div>
     <div class="left_menu_list">
-        <a href="https://www.baidu.com" target="_blank">
-            <li>接口管理</li>
-        </a>
-        <a href="https://www.baidu.com" target="_blank">
-            <li>用例管理</li>
-        </a>
-        <a href="https://www.baidu.com" target="_blank">
-            <li>测试计划</li>
-        </a>
-        <a href="https://www.baidu.com" target="_blank">
-            <li>测试报告</li>
-        </a>
-        <a href="https://www.baidu.com" target="_blank">
-            <li>环境管理</li>
-        </a>
+        <ul>
+            <li>
+                <h3>接口管理</h3>
+                <ul>
+                    <li><a href="">添加接口</a></li>
+                    <li><a href="">接口列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <h3>用例管理</h3>
+                <ul>
+                    <li><a href="">添加接口</a></li>
+                    <li><a href="">接口列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <h3>测试计划</h3>
+                <ul>
+                    <li><a href="">添加接口</a></li>
+                    <li><a href="">接口列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <h3>测试报告</h3>
+                <ul>
+                    <li><a href="">添加接口</a></li>
+                    <li><a href="">接口列表</a></li>
+                </ul>
+            </li>
+            <li>
+                <h3>环境管理</h3>
+                <ul>
+                    <li><a href="">添加接口</a></li>
+                    <li><a href="">接口列表</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </div>
 <!--内容部分-->
@@ -146,9 +168,38 @@
         </div>
     </div>
     <div class="project_info">
-        <img src="../image/plus.png" alt="">
+        <img src="../images/plus.png" alt="新增项目">
     </div>
+</div>
 
+<!--新增项目弹框部分-->
+<div class="add_pro">
+    <div class="add_title">新增项目</div>
+    <div class="add_quit">
+        <img src="../images/close.png" alt="退出">
+    </div>
+    <form action="">
+        <div class="add_pro_input">
+            <label for="project_title">项 目 名 称:</label>
+            <input type="text" name="pro_title" id="project_title">
+        </div>
+        <div class="add_pro_input">
+            <label for="project_url">项 目 地 址:</label>
+            <input type="text" name="pro_url" id="project_url">
+        </div>
+        <div class="add_pro_input">
+            <label for="project_tester">测 试 人 员:</label>
+            <input type="text" name="pro_tester" id="project_tester">
+        </div>
+        <div class="add_pro_desc">
+            <label for="project_desc">项 目 描 述:</label>
+            <textarea name="pro_desc" id="project_desc" cols="25" rows="5"></textarea>
+        </div>
+        <div class="add_pro_submit">
+            <label for="project_submit"></label>
+            <input type="button" id="project_submit" value="提交">
+        </div>
+    </form>
 </div>
 </body>
 </html>
