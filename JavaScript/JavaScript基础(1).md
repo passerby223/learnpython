@@ -235,7 +235,43 @@ console.log(bookPrice === bookPrice1);//false
     }
     //输出：9 - 7 = 2
     ```
-
+### 循环
+`while`循环
+```javascript
+var a = 21;
+while (a <= 30) {
+    console.log(a);//输出：21到30
+    a++;
+}
+```
+`for`循环
+```javascript
+for (var i = 1; i <= 10; i++) {
+    console.log(i);//输出1到10
+}
+```
+`for in`循环
+* `for in`循环遍历数组
+    ```javascript
+    var myArray = Array("小花花", 21, "女", "打羽毛球");
+    for (j in myArray) {
+        // console.log(j);//输出0到3，输出的是myArray数组的元素下标
+        console.log(myArray[j]);//输出：小花花 21 女 打羽毛球
+    }
+    ```
+* `for in`循环遍历对象
+    ```javascript
+    var objA = {
+        name: "小花花",
+        age: 21,
+        gender: "女",
+        hobby: "旅行"
+    };
+    for (n in objA) {
+        // console.log(n);//输出的是对象的属性：name age gender hobby
+        console.log(objA[n]);//输出对象的属性值：小花花 21 女 旅行
+    }
+    ```
 ### 函数
 #### 函数定义
 定于本函数的关键字`function`,函数内的代码块包裹在花括号内

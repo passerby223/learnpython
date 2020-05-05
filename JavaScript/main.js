@@ -132,29 +132,65 @@ switch 语句
 对象
  */
 //操作对象的属性
-var objC = {name: "小华华", age: 21, gender: "男"};
-//获取objC对象的属性
-console.log(objC.name);//小华华
-console.log(objC["age"]);//21
-console.log(objC);//{name: "小华华", age: 21, gender: "男"}
-//修改objC对象的属性值
-objC.name = "小刚刚";
-console.log(objC);//{name: "小刚刚", age: 21, gender: "男"}
-objC["age"] = 22;
-console.log(objC);//{name: "小刚刚", age: 22, gender: "男"}
+// var objC = {name: "小华华", age: 21, gender: "男"};
+// //获取objC对象的属性
+// console.log(objC.name);//小华华
+// console.log(objC["age"]);//21
+// console.log(objC);//{name: "小华华", age: 21, gender: "男"}
+// //修改objC对象的属性值
+// objC.name = "小刚刚";
+// console.log(objC);//{name: "小刚刚", age: 21, gender: "男"}
+// objC["age"] = 22;
+// console.log(objC);//{name: "小刚刚", age: 22, gender: "男"}
+//
+// //对象方法：对象方法是作为属性来存储的函数
+// var objD = {
+//     name: "小花花",
+//     age: "21",
+//     gender: "女",
+//     func: function (a, b) {
+//         alert("对象方法");
+//         this.name = "大花花";//this来修改了objD对象的name属性的值为"大花花"
+//         return a + b;
+//     }
+// };
+//
+// res = objD.func(10, 15);
+// console.log(res);//25
+// console.log(objD);//{name: "大花花", age: "21", gender: "女", func: ƒ}
 
-//对象方法：对象方法是作为属性来存储的函数
-var objD = {
+
+/*
+循环
+ */
+
+//while循环
+// var a = 21;
+// while (a <= 30) {
+//     console.log(a);//输出：21到30
+//     a++;
+// }
+
+//for循环
+// for (var i = 1; i <= 10; i++) {
+//     console.log(i);//输出1到10
+// }
+
+//for in循环
+// var myArray = Array("小花花", 21, "女", "打羽毛球");
+// for (j in myArray) {
+//     // console.log(j);//输出0到3，输出的是myArray数组的元素下标
+//     console.log(myArray[j]);//输出：小花花 21 女 打羽毛球
+// }
+
+//for in循环遍历对象
+var objA = {
     name: "小花花",
-    age: "21",
+    age: 21,
     gender: "女",
-    func: function (a, b) {
-        alert("对象方法");
-        this.name = "大花花";//this来修改了objD对象的name属性的值为"大花花"
-        return a + b;
-    }
+    hobby: "旅行"
 };
-
-res = objD.func(10, 15);
-console.log(res);//25
-console.log(objD);//{name: "大花花", age: "21", gender: "女", func: ƒ}
+for (n in objA) {
+    // console.log(n);//输出的是对象的属性：name age gender hobby
+    console.log(objA[n]);//输出对象的属性值：小花花 21 女 旅行
+}
