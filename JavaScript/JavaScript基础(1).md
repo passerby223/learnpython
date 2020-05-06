@@ -366,4 +366,95 @@ res = objD.func(10, 15);
 console.log(res);//25
 console.log(objD);//{name: "大花花", age: "21", gender: "女", func: ƒ}
 ```
+## JS操作页面
+### DOM简介
+通过HTML DOM可以访问JavaScript文档的所有元素。
 
+当网页被加载时，浏览器会创建页面的文档对象模型(Document Object Model)。
+ 
+HTML DOM被构造为对象的树。
+
+HTML DOM树
+![html-dom](html-dom.gif)
+节点树中的节点彼此拥有层级关系
+* 父(parent)、子(child)和同胞(sibling)等术语用于描述这些关系。父节点拥有子节点。同级的子节点被称为同胞(兄弟或姐妹)。
+
+通过可编程的对象模型，JavaScript获得了足够的能力来创建动态的HTML。
+* 如何改变HTML元素的内容(innerHTML)。
+* 如何改变HTML元素的样式(CSS)。
+* 如何对HTML DOM事件做出反应。
+* 如何添加或删除HTML元素。
+
+### 获取页面标签
+通常通过JavaScript操作HTML元素，可以使用内置的对象document的方法来找到标签。
+
+**`test_js.html`**
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js操作页面</title>
+    <script type="text/javascript" src="test.js"></script>
+</head>
+<body>
+<div id="div1">div1</div>
+<div id="div2">div2</div>
+<div class="div3">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</div>
+<div class="div4">div4</div>
+</body>
+</html>
+```
+* 通过`id`找到HTML元素(常用)。
+    * `document.getElementById();`
+    ```javascript
+    //等到页面全部加载完成后再执行
+    window.onload = function () {
+        //通过id选择元素
+        var div2 = document.getElementById("div2");
+        div2.style.backgroundColor = 'red';
+        div2.style.width = "50px";
+        div2.style.height = "50px";
+    };
+    ```
+* 通过标签名找到HTML元素
+    * 获取出来的是列表
+    * `getElementsByTagName();`
+    ```javascript
+    //等到页面全部加载完成后再执行
+    window.onload = function () {
+        //通过tagName标签名字来选择，返回的是选择集
+        var div3_col = document.getElementsByTagName('li');
+        console.log("div3_col:", div3_col);
+        for (var j = 0; j < div3_col.length; j++) {
+            if (j % 2 !== 0) {
+                console.log(div3_col[j]);
+                div3_col[j].style.backgroundColor = 'pink';
+            }
+    
+        }
+    };
+    ```
+* 通过`class`类名找到HTML元素(通过class查找HTML元素在IE5,6,7,8中无效)
+    * 获取出来的是列表
+    * `getElementsByClassName();`
+    ```javascript
+    //等到页面全部加载完成后再执行
+    window.onload = function () {
+        //通过class选择元素，返回的是选择集
+        var div4_col = document.getElementsByClassName('div4');
+        console.log("div4_col:", div4_col);//HTMLCollection [div.div4]
+        var div4 = document.getElementsByClassName('div4')[0];
+        div4.style.background = '#9297a2';
+    };
+    ```
+执行以上js代码后，在浏览器中`test_js.html`渲染效果如下
+![test_js_html](test_js_html.png)
