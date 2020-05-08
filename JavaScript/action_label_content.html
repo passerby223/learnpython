@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>操作标签内容</title>
+    <script src="action_label_content.js"></script>
+    <script>
+        function myClick() {
+            alert("你点击了div4!");
+        }
+    </script>
+</head>
+<body>
+
+<br>
+<form action="">
+    请输入：<input type="text" id="input1">
+</form>
+<br>
+<div class="div1">
+    <ul>
+        <li>li1</li>
+        <li>li2</li>
+        <li>li3</li>
+        <li>li4</li>
+        <li>li5</li>
+    </ul>
+    <h3 id="h3Id" class="h3Class">哈啊啊啊啊啊啊啊</h3>
+
+</div>
+
+<div class="div2">哈哈哈哈哈哈哈</div>
+<div class="div3" style="background-color: #1E90FF;width: 100px;height: 80px" onclick=alert("你点击了div3")>div3</div>
+<div class="div4" style="background-color: chartreuse;width: 100px;height: 80px" onclick="myClick()">div4</div>
+
+<a href="https:www.baidu.com" target="_blank" id="baidu1" class="baidu2">百度一下</a>
+
+
+</body>
+</html>
