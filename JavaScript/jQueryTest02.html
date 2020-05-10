@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery选择器选择同胞和父辈元素练习demo</title>
+    <script type="text/javascript" src="../frontend/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            //测试时需要一条一条来测试，把除当前测试选择器的其他选择器代码注释掉
+            //链式调用
+            $("#li3").css({backgroundColor: "blue"}).prev().css({backgroundColor: "red"});
+            // //选择id为li3元素前面紧挨着的同辈元素
+            // $("#li3").prev().css({backgroundColor: "red"});
+            // //选择id为li3元素之前所有的同辈元素
+            // $("#li3").prevAll().css({backgroundColor: "red"});
+            // //选择id为li3元素后面紧挨着的同辈元素
+            // $("#li3").next().css({backgroundColor: "pink"});
+            // // 选择id为li3元素后面所有的同辈元素
+            // $("#li3").nextAll().css({backgroundColor: "pink"});
+            // // 选择id为li3的父元素
+            // $("#li3").parent().css({backgroundColor : "red"});
+            // // 选择div2标签的所有子元素
+            // $(".div2").children().css({backgroundColor: "red"});
+            // // 选择div2的同级元素
+            // $(".div2").siblings().css({backgroundColor: "pink", width: "80%", height: "100px"});
+            // //选择div1中class等于div3的元素(也可以查找id，层级选择器去查找等等)
+            // $("#div1").find(".div3").css({backgroundColor: "blue", width: "80%", height: "100px"});
+
+        });
+    </script>
+</head>
+<body>
+<div id="div1">
+    <div class="div2">
+        <ul>
+            <li id="li1">1</li>
+            <li id="li2">2</li>
+            <li id="li3">3</li>
+            <li id="li4">4</li>
+            <li id="li5">5</li>
+        </ul>
+        <span>哈哈哈哈哈</span>
+    </div>
+    <div id="div3" class="div3">拉拉啊啊啊啊啊啊啊啊</div>
+    <span>分割线</span>
+    <div class="div3">拉拉啊啊啊啊啊啊啊啊1</div>
+    <span>分割线</span>
+    <div id="div4">噢耶撒旦法十分广泛宣传费</div>
+</div>
+
+</body>
+</html>

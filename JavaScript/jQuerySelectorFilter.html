@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery选择过滤示例demo</title>
+    <script type="text/javascript" src="../frontend/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            // // 选择包含`p`标签的的div元素
+            // $("div").has("p").css({width: "400px", height: "100px", backgroundColor: "red"});
+            // // 选择`class`不等于`div6`的`div`元素(也可以查找id等等)
+            // $("div").not(".div6").css({backgroundColor: "red", width: "100%"});
+            // // 选择`id`不等于`div7`的`div`元素
+            // $("div").not("#div7").css({backgroundColor: "pink", width: "50%"});
+            // // 选择`class`等于`div7`的`div`元素
+            // $("div").filter(".div7").css({backgroundColor: "#1E90FF", fontSize: "30px"});
+            // //选择`class=div1`下`class=div7`的div元素
+            // $(".div1 div").filter(".div7").css({backgroundColor: "#1E90FF", fontSize: "30px"});
+            // 选择第4个(也就是索引为3)`span`元素
+            // $("span").eq(3).css({backgroundColor: "red", fontSize: "30px"});
+            var $li = $("li").eq(2);
+            //弹出元素的索引也就是2
+            alert($li.index())
+        });
+    </script>
+</head>
+<body>
+<div class="div1">
+    <div class="div2">div2
+        <p>这是一个p标签</p>
+    </div>
+    <span>分割线</span>
+    <div class="div3">div3</div>
+    <span>分割线</span>
+    <div class="div4">div4</div>
+    <span>分割线</span>
+    <div class="div7">div7_01</div>
+    <span>分割线</span>
+    <div class="div5">div5</div>
+</div>
+<span>分割线</span>
+<div class="dv">dv
+    <ul>
+        <li>li1</li>
+        <li>li2</li>
+        <li>li3</li>
+        <li>li4</li>
+        <li>li5</li>
+    </ul>
+</div>
+<span>分割线</span>
+<div class="div7">div7_02</div>
+<span>分割线</span>
+<div class="div6">div6</div>
+<span>分割线</span>
+<div id="div7" class="div7">div7_03</div>
+
+
+</body>
+</html>

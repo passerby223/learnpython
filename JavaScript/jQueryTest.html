@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQueryTest</title>
+    <!--head标签中引入jQuery-->
+    <script type="text/javascript" src="../frontend/js/jquery-1.12.4.min.js"></script>
+    <!--等到页面元素全部加载完成后再执行JavaScript代码-->
+    <script type="text/javascript">
+        $(function () {
+            // 此处为JavaScript代码
+            // 通过id选择标签元素，操作标签元素的CSS样式
+            $("#div4").css({width: "200px", height: "80px", background: "red"});
+            // 通过类选择器选择标签元素，操作标签元素的CSS样式
+            $(".div1").css({width: "200px", height: "80px", background: "pink"});
+            //通过标签选择器选择标签元素,在jQuery中选择集可以直接设置样式，不用像js那样还得通过遍历`选择集`中的元素来依次设置样式。
+            $("li").css({background: "#1E90FF", fontSize: "35px"});
+            //通过层级选择器选择元素
+            //fontSize解释：在遇到在CSS中设置样式如：font-size时，在jQuery中则需要去掉中横线`-`然后采用小驼峰命名规则来设置CSS样式
+            $(".form1 div span").css({fontSize: "40px", color: "red"});
+            //通过属性选择器修改input标签的type为password
+            $("input[type=text]").attr("type", "password");
+        });
+    </script>
+</head>
+<body>
+<div class="div3">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+    </ul>
+</div>
+<div class="div4" id="div4">div4</div>
+<div class="div1" id="div1" style="font-size: ">div1</div>
+<form action="" class="form1">
+    <div class="div2">
+        <span>哈哈哈哈</span>
+    </div>
+    <label for="input1">请输入</label>
+    <input type="text" id="input1">
+</form>
+
+</body>
+</html>
