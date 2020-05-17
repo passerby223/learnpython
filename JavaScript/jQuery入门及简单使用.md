@@ -367,4 +367,79 @@ jQuery选择器可以快速选择元素，选择规则与CSS样式相同，使�
 </html>
 ```
 ## jQuery操作样式
+* 获取元素样式
+    ```javascript
+    //获取div样式
+    $("div1").css("width");
+    $("div2").css("color");
+    ```
+* 修改元素样式
+    ```javascript
+    //设置div样式
+    //单条属性不用加`{}`,直接`"属性名", "属性值"`
+    $("div1").css("width", "30px");
+    $("div2").css("height", "30px");
+    //多条属性加`{}`,属性名不加`""`直接`{属性名1: "属性值1", 属性名2: "属性值2"}`
+    $("div3").css({fontSize: "50px", color: "30px"});
+    ```
+* 添加或移除class属性
+    ```javascript
+    //添加class属性
+    $("#div1").addClass("cs2");
+    //移除class属性
+    $("#div2").removeClass("cs2");
+    //重复切换样式
+    $("#div3").toggleClass("show");
+    ```
+## jQuery绑定click事件
+* jQuery中给元素绑定click事件时可以使用如下的方法
+    ```javascript
+    $("#btn1").click(function() {
+        //内部的this指的是原生对象
+        //使用jQuery对象用$(this)
+    });
+    ```
+* jQuery链式调用
+    * jQuery对象的方法会在执行完成后返回这个jQuery对象，所有jQuery对象的方法可以连起来写
+    ```javascript
+    $(".div1").next().fadeToggle().parent().siblings().children("ul").fadeOut();
+    ```
+## jQuery操作属性
+* `attr(name)`:设置或返回匹配元素的属性和值。
+    * 设置单条属性
+        ````javascript
+        //为所有图像设置src属性。
+        $("img").attr("src","test.jpg");
+        ````
+    * 设置多条属性
+        ```javascript
+        //为所有图像设置src和alt属性。
+        $("img").attr({ src: "test.jpg", alt: "Test Image" });
+        ```
+    * 返回文档中所有图像的src属性值。
+        ```javascript
+        $("img").attr("src");
+        ```
+* `removeAttr(name)`：从所有匹配的元素中移除指定的属性。
+    * 示例
+        ````javascript
+        //将文档中图像的src属性删除
+        $("img").removeAttr("src");
+        ````
+## jQuery操作元素
+1. 获取文本内容
+    * text():设置或返回所选元素的文本内容
+    * html():设置或返回所选元素的内容(包括HTML标记)
+    * val():设置或返回表单字段的值
+2. 添加新的HTML内容
+    * append():在被选元素的结尾插入内容
+    * prepend():在被选元素对的开头插入内容
+    * after():在被选元素之后插入内容
+    * before():在被选元素之前插入内容
+3. 删除元素/内容
+    * remove():删除被选元素(及其子元素)
+    * empty():从被选元素中删除子元素
+## jQuery动画效果函数
 TODO
+
+

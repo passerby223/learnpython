@@ -174,34 +174,37 @@
     </div>
 </div>
 
-<!--新增项目弹框部分-->
-<div class="add_pro hide">
-    <div class="add_title">新增项目</div>
-    <div class="add_quit">
-        <img class="cancel_add_pro_img" src="../images/close.png" alt="退出">
+<div class="back hide">
+    <!--新增项目弹框部分-->
+    <div class="add_pro">
+        <div class="add_title">新增项目</div>
+        <div class="add_quit">
+            <img class="cancel_add_pro_img" src="../images/close.png" alt="退出">
+        </div>
+        <form action="">
+            <div class="add_pro_input">
+                <label for="project_title">项 目 名 称:</label>
+                <input type="text" name="pro_title" id="project_title">
+            </div>
+            <div class="add_pro_input">
+                <label for="project_url">项 目 地 址:</label>
+                <input type="text" name="pro_url" id="project_url">
+            </div>
+            <div class="add_pro_input">
+                <label for="project_tester">测 试 人 员:</label>
+                <input type="text" name="pro_tester" id="project_tester">
+            </div>
+            <div class="add_pro_desc">
+                <label for="project_desc">项 目 描 述:</label>
+                <textarea name="pro_desc" id="project_desc" cols="25" rows="5"></textarea>
+            </div>
+            <div class="add_pro_submit">
+                <label for="project_submit"></label>
+                <input type="button" id="project_submit" value="提交">
+            </div>
+        </form>
     </div>
-    <form action="">
-        <div class="add_pro_input">
-            <label for="project_title">项 目 名 称:</label>
-            <input type="text" name="pro_title" id="project_title">
-        </div>
-        <div class="add_pro_input">
-            <label for="project_url">项 目 地 址:</label>
-            <input type="text" name="pro_url" id="project_url">
-        </div>
-        <div class="add_pro_input">
-            <label for="project_tester">测 试 人 员:</label>
-            <input type="text" name="pro_tester" id="project_tester">
-        </div>
-        <div class="add_pro_desc">
-            <label for="project_desc">项 目 描 述:</label>
-            <textarea name="pro_desc" id="project_desc" cols="25" rows="5"></textarea>
-        </div>
-        <div class="add_pro_submit">
-            <label for="project_submit"></label>
-            <input type="button" id="project_submit" value="提交">
-        </div>
-    </form>
 </div>
+
 </body>
 </html>
