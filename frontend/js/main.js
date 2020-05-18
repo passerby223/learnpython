@@ -24,6 +24,7 @@ $(function () {
         // $(this).next().toggle().parent().siblings().children("ul").hide();
 
         //通过jQuery中的动画：
-        $(this).next().fadeToggle().parent().siblings().children("ul").fadeOut();
+        // $(this).next().fadeToggle().parent().siblings().children("ul").fadeOut();
+        $(this).next().fadeToggle();
     });
 });
