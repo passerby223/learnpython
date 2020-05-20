@@ -16,7 +16,6 @@
             margin-right: 10px;
             width: 150px;
             font: normal 18px/60px 微软雅黑;
-            background: cornflowerblue;
             text-align: center;
         }
 
@@ -29,9 +28,25 @@
         .content div {
             width: 100%;
             height: 500px;
+            display: none;
+        }
+
+        .menu .bac {
+            background: cornflowerblue;
+        }
+
+        .content .active {
+            display: block;
         }
     </style>
     <script type="text/javascript">
+        $(function () {//设置等到页面元素全部加载完成后再执行JavaScript代码
+            $(".menu li").click(function () {
+                $(this).addClass("bac").siblings().removeClass("bac");
+                $(".content div").eq($(this).index()).addClass("active").siblings().removeClass("active");
+                // console.log($(".content div"));
+            });
+        });
 
     </script>
 </head>
@@ -39,16 +54,26 @@
 <div class="box">
     <div class="menu">
         <ul>
-            <li>请求头</li>
+            <li class="bac">请求头</li>
             <li>请求数据</li>
             <li>响应数据</li>
         </ul>
     </div>
-    <div class="content">
-        <div class="request_herder">请求头</div>
-        <div class="request_parameter">请求参数</div>
-        <div class="response_parameter">响应参数</div>
-    </div>
+        <div class="content">
+            <div class="active">
+<!--                <div class="request_header">-->
+<!--                    <input class="input_key" type="text" placeholder="key">-->
+<!--                    <input class="input_value" type="text" placeholder="value">-->
+<!--                    <img style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">-->
+<!--                    <img style="background: lavender" src="../images/add-select.svg" alt="添加键值对">-->
+<!--                </div>-->
+                `````
+            </div>
+            <div>请求参数</div>
+            <div>响应参数</div>
+        </div>
+
 </div>
+
 </body>
 </html>
