@@ -63,7 +63,7 @@
             $(".menu li").click(function () {
                 $(this).addClass("bac").siblings().removeClass("bac");
                 $(".content div").eq($(this).index()).addClass("active").siblings().removeClass("active");
-                // console.log($(".content div"));
+                // console.log($(".content div").eq($(this).index()));
             });
             var tr = "<tr>\n" +
                 "                    <td><input type=\"radio\"></td>\n" +
@@ -112,6 +112,22 @@
         <div>请求参数</div>
         <div>响应参数</div>
     </div>
+<!--    <form action="">-->
+<!--        <div class="content">-->
+<!--            <div class="active">-->
+<!--                <div class="request_header">-->
+<!--                    <input class="input_key" type="text" placeholder="key">-->
+<!--                    <input class="input_value" type="text" placeholder="value">-->
+<!--                    <img style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">-->
+<!--                    <img style="background: lavender" src="../images/add-select.svg" alt="添加键值对">-->
+<!--                </div>-->
+<!--                `````-->
+<!--            </div>-->
+<!--            <div>请求参数</div>-->
+<!--            <div>响应参数</div>-->
+<!--        </div>-->
+<!--    </form>-->
+
 
 </div>
 
