@@ -38,6 +38,25 @@
         .content .active {
             display: block;
         }
+
+        .tables tr {
+            height: 60px;
+        }
+
+        .tables th {
+            height: 40px;
+            border: solid 1px #525D76;
+        }
+
+        .tables td {
+            height: 40px;
+            border: solid 1px #525D76;
+        }
+
+        .tables input {
+            width: 100%;
+            font: normal 15px/40px 微软雅黑;
+        }
     </style>
     <script type="text/javascript">
         $(function () {//设置等到页面元素全部加载完成后再执行JavaScript代码
@@ -46,8 +65,16 @@
                 $(".content div").eq($(this).index()).addClass("active").siblings().removeClass("active");
                 // console.log($(".content div"));
             });
+            var tr = "<tr>\n" +
+                "                    <td><input type=\"radio\"></td>\n" +
+                "                    <td><input type=\"text\"></td>\n" +
+                "                    <td><input type=\"text\"></td>\n" +
+                "                </tr>";
+            //添加參數行
+            $("#add").click(function () {
+                $(this).siblings("table").append(tr);
+            });
         });
-
     </script>
 </head>
 <body>
@@ -59,19 +86,32 @@
             <li>响应数据</li>
         </ul>
     </div>
-        <div class="content">
-            <div class="active">
-<!--                <div class="request_header">-->
-<!--                    <input class="input_key" type="text" placeholder="key">-->
-<!--                    <input class="input_value" type="text" placeholder="value">-->
-<!--                    <img style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">-->
-<!--                    <img style="background: lavender" src="../images/add-select.svg" alt="添加键值对">-->
-<!--                </div>-->
-                `````
-            </div>
-            <div>请求参数</div>
-            <div>响应参数</div>
+    <div class="content">
+        <div class="active">
+            <!--                <div class="request_header">-->
+            <!--                    <input class="input_key" type="text" placeholder="key">-->
+            <!--                    <input class="input_value" type="text" placeholder="value">-->
+            <!--                    <img style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">-->
+            <!--                    <img style="background: lavender" src="../images/add-select.svg" alt="添加键值对">-->
+            <!--                </div>-->
+            <input type="button" id="add" value="添加">
+            <input type="button" id="del" value="刪除">
+            <table class="tables">
+                <tr>
+                    <th style="width: 10%">选择</th>
+                    <th style="width: 35%">header</th>
+                    <th style="width: 55%">value</th>
+                </tr>
+                <tr>
+                    <td><input type="radio"></td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
         </div>
+        <div>请求参数</div>
+        <div>响应参数</div>
+    </div>
 
 </div>
 
