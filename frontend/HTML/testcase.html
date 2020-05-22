@@ -11,6 +11,10 @@
             margin: 20px auto 0 30px;
         }
 
+        .menu {
+            height: 100px;
+        }
+
         .menu li {
             float: left;
             margin-right: 10px;
@@ -21,11 +25,11 @@
 
         .content {
             margin-top: 10px;
-            width: 100%;
-            float: left;
+            /*width: 100%;*/
+            /*float: left;*/
         }
 
-        .content div {
+        .content {
             width: 100%;
             height: 500px;
             display: none;
@@ -35,7 +39,7 @@
             background: cornflowerblue;
         }
 
-        .content .active {
+        .content.active {
             display: block;
         }
 
@@ -62,18 +66,23 @@
         $(function () {//设置等到页面元素全部加载完成后再执行JavaScript代码
             $(".menu li").click(function () {
                 $(this).addClass("bac").siblings().removeClass("bac");
-                $(".content div").eq($(this).index()).addClass("active").siblings().removeClass("active");
-                // console.log($(".content div").eq($(this).index()));
+                $(".content").eq($(this).index()).addClass("active").siblings().removeClass("active");
             });
-            var tr = "<tr>\n" +
-                "                    <td><input type=\"radio\"></td>\n" +
-                "                    <td><input type=\"text\"></td>\n" +
-                "                    <td><input type=\"text\"></td>\n" +
-                "                </tr>";
+            var tr = "<div class=\"request_header\">\n" +
+                "                <input class=\"input_key\" type=\"text\" placeholder=\"key\">\n" +
+                "                <input class=\"input_value\" type=\"text\" placeholder=\"value\">\n" +
+                "                <img class=\"del\" style=\"background: lavender\" src=\"../images/sami-select.svg\" alt=\"删除键值对\">\n" +
+                "                <img class=\"add\" style=\"background: lavender\" src=\"../images/add-select.svg\" alt=\"添加键值对\">\n" +
+                "            </div>"
             //添加參數行
-            $("#add").click(function () {
-                $(this).siblings("table").append(tr);
+            $("#tr_list").on('click', '.add', function () {
+                $(this).parent().parent().append(tr);
             });
+            //删除参数行
+            $("#tr_list").on('click', '.del', function () {
+                $(this).parent().remove();
+            });
+
         });
     </script>
 </head>
@@ -86,49 +95,35 @@
             <li>响应数据</li>
         </ul>
     </div>
-    <div class="content">
-        <div class="active">
-            <!--                <div class="request_header">-->
-            <!--                    <input class="input_key" type="text" placeholder="key">-->
-            <!--                    <input class="input_value" type="text" placeholder="value">-->
-            <!--                    <img style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">-->
-            <!--                    <img style="background: lavender" src="../images/add-select.svg" alt="添加键值对">-->
-            <!--                </div>-->
-            <input type="button" id="add" value="添加">
-            <input type="button" id="del" value="刪除">
-            <table class="tables">
-                <tr>
-                    <th style="width: 10%">选择</th>
-                    <th style="width: 35%">header</th>
-                    <th style="width: 55%">value</th>
-                </tr>
-                <tr>
-                    <td><input type="radio"></td>
-                    <td><input type="text"></td>
-                    <td><input type="text"></td>
-                </tr>
-            </table>
+    <div id="tr_list">
+        <div class="content active">
+            <div class="request_header">
+                <input class="input_key" type="text" placeholder="key">
+                <input class="input_value" type="text" placeholder="value">
+                <img class="del" style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">
+                <img class="add" style="background: lavender" src="../images/add-select.svg" alt="添加键值对">
+            </div>
         </div>
-        <div>请求参数</div>
-        <div>响应参数</div>
+        <div class="content">
+            <div class="request_header">
+                <input class="input_key" type="text" placeholder="key">
+                <input class="input_value" type="text" placeholder="value">
+                <img class="del" style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">
+                <img class="add" style="background: lavender" src="../images/add-select.svg" alt="添加键值对">
+            </div>
+        </div>
+        <div class="content">
+            <div class="request_header">
+                <input class="input_key" type="text" placeholder="key">
+                <input class="input_value" type="text" placeholder="value">
+                <img class="del" style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">
+                <img class="add" style="background: lavender" src="../images/add-select.svg" alt="添加键值对">
+            </div>
+
+        </div>
+
+
     </div>
-<!--    <form action="">-->
-<!--        <div class="content">-->
-<!--            <div class="active">-->
-<!--                <div class="request_header">-->
-<!--                    <input class="input_key" type="text" placeholder="key">-->
-<!--                    <input class="input_value" type="text" placeholder="value">-->
-<!--                    <img style="background: lavender" src="../images/sami-select.svg" alt="删除键值对">-->
-<!--                    <img style="background: lavender" src="../images/add-select.svg" alt="添加键值对">-->
-<!--                </div>-->
-<!--                `````-->
-<!--            </div>-->
-<!--            <div>请求参数</div>-->
-<!--            <div>响应参数</div>-->
-<!--        </div>-->
-<!--    </form>-->
-
-
 </div>
 
 </body>
