@@ -39,6 +39,21 @@ def hello():
 # 也可以通过关键字参数绑定host、port、debug(是否开启debug模式：True/False 开启后再更改完代码后，会自动重启flask应用)
 app.run(port=12306, debug=True)
 ```
+templates目录下的hello.html文件
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自我介绍</title>
+</head>
+<body>
+<h1>个人信息介绍</h1>
+<p>你好，我是小花花</p>
+<p>我今年21岁，喜欢打乒乓球，旅游</p>
+</body>
+</html>
+```
 ## 程序执行效果
 ### 访问根路径`/`不传参数
 ![根路径](根路径.png)
