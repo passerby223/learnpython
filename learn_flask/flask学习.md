@@ -2,6 +2,10 @@
 ## 简单介绍
 * `Flask`是一个使用`Python`编写的`轻量级Web应用框架`。其`WSGI工具箱`采用`Werkzeug`，`模板引擎`则使用`Jinja2`。`Flask`使用`BSD授权`。
 * Flask也被称为`microframework`，因为它使用简单的核心，用`extension`增加其他功能。`Flask`没有默认使用的`数据库`、`窗体验证工具`。
+## 通过pip安装flask
+```bash
+pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple flask
+```
 ## 编写第一个flask程序
 ```python
 #!/usr/bin/python3
