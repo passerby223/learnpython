@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 # 添加路由
 @app.route("/")
-def index():
+def index(): # 视图函数
     # args = request.args # 获取传入的的参数 可以是：params形式参数、form形式参数、json形式参数、file格式文件
     data = request.args.get("user")
 
