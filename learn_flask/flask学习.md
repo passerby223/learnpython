@@ -244,3 +244,129 @@ if __name__ == '__main__':
 以此类推，没刷新一次页面访问页面次数就加1。
 
 好啦，以上就是今天分享的全部内容了，其实学web开发挺有意思的(手动吃瓜~)
+
+# flask设置路由动态参数和重定向操作
+## 路由动态参数
+* 通过视图函数绑定的url路径来传递动态参数
+    * 获取int类型动态参数,此时前端传入的动态参数必须是int类型
+        ```python
+        @app.route("/param/<int:param>")
+        def param_int(param):
+            return f"<h1>传入的int类型参数是：{param}，提示：传入其他类型参数会报错!</h1>"
+        ```
+        此时运行flask服务，前端访问`http://127.0.0.1:5000/param/198` ，前端展示为`传入的int类型参数是：198，提示：传入其他类型参数会报错!`；
+    * 获取float类型动态参数,此时前端传入的动态参数必须是float类型
+        ```python
+        @app.route("/param/<float:param>")
+        def param_float(param):
+            return f"<h1>传入的float类型参数是：{param}，提示：传入其他类型参数会报错!</h1>"
+        ```
+        此时运行flask服务，前端访问`http://127.0.0.1:5000/param/9.9` ，前端展示为`传入的float类型参数是：9.9，提示：传入其他类型参数会报错!`；
+    * 获取path路径类型动态参数**(动态参数可以包含'/')**,此时前端传入的动态参数必须是path类型
+        ```python
+        @app.route("/param/<path:param>")
+        def param_path(param):
+            return f"<h1>传入的path类型参数是：{param}，提示：传入其他类型参数会报错!</h1>"
+        ```
+        此时运行flask服务，前端访问`http://127.0.0.1:5000/param/api/meta/translation` ，前端展示为`传入的path类型参数是：api/meta/translation，提示：传入其他类型参数会报错!`；
+    * 获取string类型动态参数**(动态参数不可以包含'/')**,此时前端传入的动态参数必须是string类型
+        ```python
+        @app.route("/param/<string:param>")
+        def param_string(param):
+            return f"<h1>传入的string类型参数是：{param}，提示：传入其他类型参数会报错!</h1>"
+        ```
+        此时运行flask服务，前端访问`http://127.0.0.1:5000/param/我叫小花花,今天21岁了` ，前端展示为`传入的string类型参数是：我叫小花花,今天21岁了，提示：传入其他类型参数会报错!`；
+* 通过`request`来获取前端url路径使用`?key1=value1&key2=value2`的形式来获取传入的动态参数。
+    ```python
+    @app.route("/hello")
+    def say_hello():
+        name = request.args.get('name')
+        age = request.args.get('age')
+        return "<h1>hello " + name + ",你的年龄是" + age + "。</h1>"
+    ```
+    此时运行flask服务，前端访问`http://127.0.0.1:5000/hello?name=小花花&age=21` ，前端展示为`hello 小花花,你的年龄是21。`；访问`http://127.0.0.1:5000/hello?name=熊大&age=10` ，前端展示为`hello 熊大,你的年龄是10。`。
+* 补充知识：**可以通过Python标准库uuid来生成一个唯一ID**。每次生成的`uuid`都是唯一的。
+    ```python
+    import uuid
+    print(uuid.uuid4()) # 4b994059-b244-44c8-ba7a-4282bb504f78
+    print(type(uuid.uuid4())) # <class 'uuid.UUID'>
+    ```
+## 路由重定向
+flask的哲学：/index/和/index是两个不同的URLpath，不能搞混了。
+
+代码举例说明/index/和/index是两个不同的URLpath
+```python
+#!/usr/bin/python3
+# @FileName    :flask_redirect.py
+# @Time        :2020/6/1 下午11:47
+# @Author      :ABC
+# @Description :
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route("/index")
+def index():
+    return "这是`/index`页面!"
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+此时访问`http://127.0.0.1:5000/index` , 前端页面会展示`这是index页面!`。
+
+然后在访问`http://127.0.0.1:5000/index/` ,前端页面会展示`Not Found。The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.`。
+
+翻译过来说的就是：**找不到。在服务器上找不到请求的URL。如果您手动输入网址，请检查拼写，然后重试。**
+
+这就说明了/index/和/index是两个不同的URLpath，体现了flask的严谨哲学(手动狗头~)
+
+### 再看下边的代码示例
+```python
+#!/usr/bin/python3
+# @FileName    :flask_redirect.py
+# @Time        :2020/6/1 下午11:47
+# @Author      :ABC
+# @Description :
+from flask import Flask
+
+app = Flask(__name__)
+
+
+@app.route("/index/")
+def index():
+    return "这是index页面!"
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+相比之前的代码，现在的index()视图函数绑定的路由的URLpath`/index/`比之前的index()视图函数绑定的路由的URLpath`/index`多了一个`/`斜杠。
+
+此时我们再次访问`http://127.0.0.1:5000/index` ,发现前端依然展示`这是index页面!`，说明响应成功了。
+
+然后我们使用F12打开浏览器抓个包看一下。
+![浏览器抓到两个index相关的请求包](浏览器抓到两个index相关的请求包.png)
+我们可以看到一共抓到了两个`index`相关的请求包。
+
+先看一下第一个`index`的请求包的`响应状态码(Status Code)`和`响应头(Response Headers)`信息
+![index的General信息](index的General信息.png)
+可以看到接口响应状态码为`308`，也就是`永久重定向(PERMANENT REDIRECT)`。
+
+然后接着看`index`的响应体数据，发现没有任何数据。
+![index的响应体数据](index的响应体数据.png)
+
+然后再接着看`index/`的`响应状态码(Status Code)`为`200`。
+![index斜杠的请求头信息](index斜杠的请求头信息.png)
+
+`index`的响应体数据才是返回了我们定义的路由函数的返回值`这是index页面!`
+![index斜杠的响应数据](index斜杠的响应数据.png)
+
+总结一下，当我们访问`http://127.0.0.1:5000/index` 时，而我们实际的视图函数`index()`中路由绑定的URLpath是`/index/`,但是flask程序最后依然通过`308永久重定向`将请求由`/index`重定向到`/index/`了，这就提现了**flask的灵活且对用户友好的特点**。
+
+**最后再来看一下flask重定向请求的整个过程。**
+
+![](flask访问URLpath不带斜杠后的永久重定向流程.png)
+
+
