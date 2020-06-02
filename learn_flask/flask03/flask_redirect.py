@@ -12,10 +12,21 @@ app = Flask(__name__)
 # def index1():
 #     return "这是index页面!"
 
-@app.route("/index/")
-def index():
-    return "这是index页面!"
+# @app.route("/index/")
+# def index():
+#     return "这是index页面!"
 
+
+def hello():
+    return "hello"
+
+
+def say_name():
+    return "我叫小花花!"
+
+
+app.add_url_rule('/hello', hello)
+app.add_url_rule(endpoint='/name', view_func=say_name)
 
 if __name__ == '__main__':
     app.run(debug=True)

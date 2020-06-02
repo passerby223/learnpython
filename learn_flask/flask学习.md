@@ -245,6 +245,8 @@ if __name__ == '__main__':
 
 好啦，以上就是今天分享的全部内容了，其实学web开发挺有意思的(手动吃瓜~)
 
+
+
 # flask设置路由动态参数和重定向操作
 ## 路由动态参数
 * 通过视图函数绑定的url路径来传递动态参数
@@ -291,7 +293,7 @@ if __name__ == '__main__':
     print(uuid.uuid4()) # 4b994059-b244-44c8-ba7a-4282bb504f78
     print(type(uuid.uuid4())) # <class 'uuid.UUID'>
     ```
-## 路由重定向
+## flask路由自动重定向(了解即可，手动设置路由重定向才是重点)
 flask的哲学：/index/和/index是两个不同的URLpath，不能搞混了。
 
 代码举例说明/index/和/index是两个不同的URLpath
@@ -367,6 +369,147 @@ if __name__ == '__main__':
 
 **最后再来看一下flask重定向请求的整个过程。**
 
-![](flask访问URLpath不带斜杠后的永久重定向流程.png)
+![flask访问URLpath不带斜杠后永久重定向流程](flask访问URLpath不带斜杠后永久重定向流程.png)
 
+## 路由注册机制
+那么在flask中如何手动设置重定向呢，首先我们先来搞懂`flask中的路由注册机制`，顺便总结一下`在flask中注册路由`的相关知识。
 
+在`flask中注册路由`一共有2种方法
+1. 装饰器注册，也就是在`视图函数`上使用`装饰器[@app.route("/index/")]`来绑定`路由`，如：
+    ```python
+    @app.route("/index/")
+    def index():
+        return "这是index页面!"
+    ```
+2. 集中注册路由，通过`app.add_url_rule()`来集中注册路由，如：
+    ```python
+    #!/usr/bin/python3
+    # @FileName    :flask_redirect.py
+    # @Time        :2020/6/1 下午11:47
+    # @Author      :ABC
+    # @Description :
+    from flask import Flask
+    
+    app = Flask(__name__)
+    
+    
+    # @app.route("/index")
+    # def index1():
+    #     return "这是index页面!"
+    
+    # @app.route("/index/")
+    # def index():
+    #     return "这是index页面!"
+    
+    
+    def hello():
+        return "hello"
+    
+    
+    def say_name():
+        return "我叫小花花!"
+    
+    
+    app.add_url_rule('/hello', hello)
+    # endpoint设置为`注册路由的地址`，也就是`URLpath`；view_func设置为视图函数名称，注意视图函数名称不能加`()`，只要函数名
+    app.add_url_rule(endpoint='/name', view_func=say_name)
+    
+    if __name__ == '__main__':
+        app.run(debug=True)
+    ```
+总结一下，**使用`装饰器注册路由`**主要适用于flask小型项目，使用**`app.add_url_rule(endpoint=XXX, view_func=XXX)`集中注册路由**主要适用于flask大型项目。
+
+## flask手动设置路由重定向
+1. 在装饰器中使用`redirect_to=XXX`如：`@app.route(redirect_to='/')`
+    ```python
+    #!/usr/bin/python3
+    # @FileName    :flask_manual_redirect.py
+    # @Time        :2020/6/3 上午12:24
+    # @Author      :ABC
+    # @Description :
+    from flask import Flask
+    
+    app = Flask(__name__)
+    
+    
+    @app.route("/")
+    def home():
+        return "这是home首页!"
+    
+    
+    print(app.url_map)
+    
+    
+    @app.route("/login", methods=['GET'], endpoint='user_login', redirect_to='/')  # 在装饰器中设置重定向，程序运行时不会执行当前视图函数login() 
+    def login():
+        print('执行了login函数!')
+        return "登录成功!"
+    
+    
+    if __name__ == '__main__':
+        app.run(debug=True)
+    ```
+    启动flask服务，前端访问`http://127.0.0.1:5000/login` ，浏览器抓到的包如下
+    
+    抓到的第1个请求
+    
+    ![重定向1](重定向1.png)
+    
+    抓到的第2个请求
+    
+    ![重定向2](重定向2.png)
+    
+    可以看到请求已经从`/login`被重定向到`/`了。同时控制台也**没有打印`login()`视图函数中的`print('执行了login函数!')`语句的内容**，**说明了`在装饰器中设置重定向，程序运行时不会执行当前视图函数login()`**
+    
+    ![重定向控制台未打印print语句的内容](重定向控制台未打印print语句的内容.png)
+2. 通过`在视图函数的return语句`中`调用flask包中`的`redirect()方法`来设置路由重定向
+    ```python
+    #!/usr/bin/python3
+    # @FileName    :flask_manual_redirect.py
+    # @Time        :2020/6/3 上午12:24
+    # @Author      :ABC
+    # @Description :
+    from flask import Flask, redirect
+    
+    app = Flask(__name__)
+    
+    
+    @app.route("/")
+    def home():
+        return "这是home首页!"
+    
+    
+    print(app.url_map)
+    
+    
+    # @app.route("/login", methods=['GET'], endpoint='user_login', redirect_to='/')  # 在装饰器中设置重定向，程序运行时不会执行当前视图函数login()
+    # def login():
+    #     print('执行了login函数!')
+    #     return "登录成功!"
+    
+    @app.route("/login", methods=['GET'], endpoint='user_login')
+    def login():
+        print('执行了login函数!')
+        return redirect('/')  # 需要从flask包中导入`redirect`方法
+    
+    
+    print(app.url_map)
+    
+    if __name__ == '__main__':
+        app.run(debug=True)
+    ```
+    启动flask服务，前端访问`http://127.0.0.1:5000/login` ，浏览器抓到的包如下
+        
+    抓到的第1个请求
+    
+    ![重定向3](重定向3.png)
+    
+    抓到的第2个请求
+    
+    ![重定向4](重定向4.png)
+    
+    可以看到请求已经从`/login`被重定向到`/`了。同时控制台也**打印了`login()`视图函数中的`print('执行了login函数!')`语句的内容**，**说明了`在视图函数的return语句`中`调用flask包中`的`redirect()方法`来设置路由重定向，依然会执行当前视图函数login()的内容**
+    
+    ![重定向控制台打印了print语句的内容](重定向控制台打印了print语句的内容.png)
+
+好了，今天的内容就到这里了。`-.-`
