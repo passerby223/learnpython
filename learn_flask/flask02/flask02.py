@@ -18,7 +18,7 @@ def log_time(f):
     return decorator
 
 
-# 打印当前时间的装饰器
+# 记录页面访问次数的装饰器
 def log_time1(f):
     def decorator1(*args, **kwargs):
         app.config['num'] += 1
