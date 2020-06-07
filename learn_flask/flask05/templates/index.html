@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>flask接收ajax请求</title>
+    <script type="text/javascript" src="../static/jquery-1.12.4.min.js"></script>
+</head>
+<body>
+<!--进行文件传输时，一定要加上enctype属性，否则浏览器是不会将文件提交到服务器的-->
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="pic">
+    <input type="submit">
+</form>
+<p onclick="send_ajax()" style="background-color: cornflowerblue; width: 70px">点击发送</p>
+<script>
+    function send_ajax() {
+        //发送ajax请求
+        $.ajax({
+            url: 'http://127.0.0.1:5000',
+            data: JSON.stringify({username: "小花花"}),
+            dataType: 'json',
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                alert("发送成功!");
+            }
+        });
+
+    }
+</script>
+</body>
+</html>
