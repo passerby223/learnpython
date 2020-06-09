@@ -8,6 +8,9 @@ import os
 from flask import Flask, render_template, request, send_from_directory
 from werkzeug.utils import secure_filename
 
+'''
+限制文件上传的大小
+'''
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024  # 通过设置配置项中的`MAX_CONTENT_LENGTH`参数限制上传文件的大小为1M，也就是1024*1024
 
