@@ -3,7 +3,7 @@
 # @Time        :2020/6/6 下午5:40
 # @Author      :ABC
 # @Description : 可插拔视图代码示例
-from flask import Flask, request
+from flask import Flask, request, url_for
 from flask.views import View
 
 app = Flask(__name__)

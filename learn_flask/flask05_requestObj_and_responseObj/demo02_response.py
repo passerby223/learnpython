@@ -2,7 +2,7 @@
 # @FileName    :demo02_response.py
 # @Time        :2020/6/9 下午10:53
 # @Author      :ABC
-# @Description : flaskz中的响应对象相关demo
+# @Description : flask中的响应对象相关demo:实现原理——>都是在make_response()方法上做了二次封装
 import json
 
 from flask import Flask, make_response, jsonify

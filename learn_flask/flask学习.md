@@ -120,7 +120,7 @@ app.config['ENV'] = 'development'
 ```bash
 * Running on http://127.0.0.1:12306/ (Press CTRL+C to quit)
 * Restarting with stat
-* Serving Flask app "flask02" (lazy loading)
+* Serving Flask app "flask02_decorator_and_env" (lazy loading)
 * Environment: production
 WARNING: This is a development server. Do not use it in a production deployment.
 Use a production WSGI server instead.
@@ -132,7 +132,7 @@ Use a production WSGI server instead.
 ```bash
 * Running on http://127.0.0.1:12306/ (Press CTRL+C to quit)
 * Restarting with stat
-* Serving Flask app "flask02" (lazy loading)
+* Serving Flask app "flask02_decorator_and_env" (lazy loading)
 * Environment: development
 * Debug mode: on
 * Debugger is active!
@@ -166,7 +166,7 @@ def index():
 示例
 ```python
 #!/usr/bin/python3
-# @FileName    :flask02.py
+# @FileName    :flask02_decorator_and_env.py
 # @Time        :2020/5/31 下午9:55
 # @Author      :ABC
 # @Description :
@@ -469,12 +469,12 @@ if __name__ == '__main__':
     # @Time        :2020/6/3 上午12:24
     # @Author      :ABC
     # @Description :
-    from flask import Flask, redirect
+    from flask import Flask, redirect, url_for
     
     app = Flask(__name__)
     
     
-    @app.route("/")
+    @app.route("/", endpoint='home')
     def home():
         return "这是home首页!"
     
@@ -482,15 +482,24 @@ if __name__ == '__main__':
     print(app.url_map)
     
     
+    # 路由重定向方法1
     # @app.route("/login", methods=['GET'], endpoint='user_login', redirect_to='/')  # 在装饰器中设置重定向，程序运行时不会执行当前视图函数login()
     # def login():
     #     print('执行了login函数!')
     #     return "登录成功!"
     
+    # 路由重定向方法2
     @app.route("/login", methods=['GET'], endpoint='user_login')
     def login():
         print('执行了login函数!')
-        return redirect('/')  # 需要从flask包中导入`redirect`方法
+        # endpoint代表视图函数和路由的绑定关系。
+        # 使用url_for(endpoint=xxx)方法配合redirect()进行路由重定向操作。
+        '''
+        为什么要使用url_for(endpoint=xxx)方法？
+        因为通常我们路由的地址会因为需求而经常改变，但是endpoint(视图函数和路由的绑定关系)是固定的，
+        所以可以通过url_for(endpoint=xxx)方法再配合redirect()进行路由重定向操作。
+        '''
+        return redirect(url_for(endpoint='.home'))  # 需要从flask包中导入`redirect`方法
     
     
     print(app.url_map)
