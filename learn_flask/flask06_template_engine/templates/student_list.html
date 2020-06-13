@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<!--    for循环-->
+    {% for stu in student_list %}
+<!--        通过set设置变量-->
+        {% set gender = stu.gender %}
+        {% if not loop.last %}
+<!--        可以通过stu.name和stu['age']来获取字典中键key的值-->
+
+<!--        设置正序依次获取每个div的索引(默认从1开始)-->
+<!--        <div>ID：{{ loop.index }}, 姓名: {{ stu.name }}, 年龄: {{ stu['age'] }}, 性别: {{ gender }}</div>-->
+
+<!--        设置正序依次获取每个div的索引(手动设置从索引0开始)-->
+<!--        <div>ID：{{ loop.index0 }}, 姓名: {{ stu.name }}, 年龄: {{ stu['age'] }}, 性别: {{ gender }}</div>-->
+
+<!--        设置倒序依次获取每个div的索引-->
+<!--        <div>ID：{{ loop.revindex }}, 姓名: {{ stu.name }}, 年龄: {{ stu['age'] }}, 性别: {{ gender }}</div>-->
+
+<!--        设置如果当前stu不是student_list列表中的最后一个元素，就执行以下代码：ID=获取下一条元素的name  -->
+            <div>ID：{{ loop.nextitem.name }}, 姓名: {{ stu.name }}, 年龄: {{ stu['age'] }}, 性别: {{ gender }}</div>
+        {% else %}
+            <div>ID：{{ loop.index }}, 姓名: {{ stu.name }}, 年龄: {{ stu['age'] }}, 性别: {{ gender }}</div>
+        {% endif %}
+<!--    for循环必须要有结束语句-->
+    {% endfor %}
+</body>
+</html>

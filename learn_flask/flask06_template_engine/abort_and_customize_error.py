@@ -4,9 +4,10 @@
 # @Author    : ABC
 # @FileName  : abort_and_customize_error.py
 
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, abort, request, jsonify
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 '''
 自定义响应错误方法(一)：使用abort()方法
@@ -48,6 +49,28 @@ def project():
     if not request.args.get('projectId'):
         raise ProjectNotFoundError()
     return f"projectId is {request.args.get('projectId')}"
+
+
+'''
+自定义响应错误方法并返回json格式的数据,适用于前后端分离项目
+'''
+
+
+class CaseNotFoundError(Exception):
+    pass
+
+
+@app.errorhandler(CaseNotFoundError)
+def error_case_404(error):
+    return jsonify({'code': -1, 'msg': '未找到相关资源'}), 404
+
+
+@app.route('/cases')
+def case():
+    if not request.args.get('caseId'):
+        raise CaseNotFoundError()
+
+    return jsonify({'code': 0, 'msg': 'success', 'caseId': request.args.get('caseId')}), 200
 
 
 if __name__ == '__main__':
